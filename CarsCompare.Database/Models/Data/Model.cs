@@ -4,26 +4,22 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CarsCompare.Database.Models.Data
-{
-    [Table("bcb_models")]
-    public class Model : BaseModel
-    {        
-        [Column("brand_id")]
-        public int? BrandId { get; set; }
+{    
+    public class Model : Base
+    {
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public int BrandId { get; set; }
 
-        [Column("name"), MaxLength(255)]
+        [Required, StringLength(255)]
         public string Name { get; set; }
         
-        [JsonIgnore]        
-        [ForeignKey("BrandId"), DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [JsonIgnore]                
         public virtual Brand Brand { get; set; }
 
-        [JsonIgnore]
-        [InverseProperty("Model")]
+        [JsonIgnore]        
         public virtual ICollection<Version> Versions { get; set; }
 
-        [JsonIgnore]
-        [InverseProperty("Model")]
+        [JsonIgnore]        
         public virtual ICollection<Modify> Modifies { get; set; }
     }
 }

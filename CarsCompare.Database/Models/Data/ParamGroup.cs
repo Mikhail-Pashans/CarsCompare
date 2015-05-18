@@ -4,19 +4,16 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CarsCompare.Database.Models.Data
-{
-    [Table("bcb_param_groups")]
-    public class ParamGroup : BaseModel
+{    
+    public class ParamGroup : Base
     {
-        [Column("name"), MaxLength(255)]
+        [Required, StringLength(255)]
         public string Name { get; set; }
 
-        [JsonIgnore]
-        [InverseProperty("ParamGroup")]
+        [JsonIgnore]        
         public virtual ICollection<ParamName> ParamNames { get; set; }
 
-        [JsonIgnore]
-        [NotMapped]
-        public new int? ItemType { get; set; }
+        [JsonIgnore, NotMapped]
+        public new int ItemType { get; set; }
     }
 }

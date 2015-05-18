@@ -5,27 +5,24 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CarsCompare.Database.Models.Data
 {
-    [Table("bcb_versions")]
-    public class Version : BaseModel
-    {        
-        [Column("model_id")]
-        public int? ModelId { get; set; }
+    public class Version : Base
+    {
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public int ModelId { get; set; }
 
-        [Column("name"), MaxLength(255)]
+        [Required, StringLength(255)]
         public string Name { get; set; }
 
-        [Column("gen"), MaxLength(255)]
+        [Required, StringLength(255)]
         public string Gen { get; set; }
 
-        [Column("mod"), MaxLength(255)]
+        [Required, StringLength(255)]
         public string Mod { get; set; }
 
-        [JsonIgnore]        
-        [ForeignKey("ModelId"), DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [JsonIgnore]                
         public virtual Model Model { get; set; }
 
-        [JsonIgnore]
-        [InverseProperty("Version")]
+        [JsonIgnore]        
         public virtual ICollection<Modify> Modifies { get; set; }
     }
 }

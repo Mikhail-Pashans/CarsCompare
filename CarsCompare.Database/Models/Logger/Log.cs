@@ -4,28 +4,26 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CarsCompare.Database.Models.Logger
 {
-    [Table("log")]
-    public class Log : IntPrimaryKeyModel
+    public class Log : IntPrimaryKey
     {
-        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity), Column("id")]
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public new int Id { get; set; }
-        
-        [Column("date")]
+                
         public DateTime Date { get; set; }
 
-        [Column("thread"), MaxLength(255)]
+        [StringLength(255)]
         public string Thread { get; set; }
 
-        [Column("level"), MaxLength(50)]
+        [StringLength(50)]
         public string Level { get; set; }
 
-        [Column("ip_address"), MaxLength(25)]
+        [StringLength(25)]
         public string IpAddress { get; set; }
 
-        [Column("message"), MaxLength(4000)]
+        [StringLength(4000)]
         public string Message { get; set; }
 
-        [Column("exception"), MaxLength(2000)]
+        [StringLength(2000)]
         public string Exception { get; set; }
     }
 }

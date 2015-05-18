@@ -63,7 +63,13 @@
     <Compile Include="EfUnitOfWork.cs" />
     <Compile Include="IGenericRepository.cs" />
     <Compile Include="IUnitOfWork.cs" />
-    <Compile Include="Models\BaseModel.cs" />
+    <Compile Include="Migrations\201505181431110_InitialCreate.cs" />
+    <Compile Include="Migrations\201505181431110_InitialCreate.Designer.cs">
+      <DependentUpon>201505181431110_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Migrations\MySqlHistoryContext.cs" />
+    <Compile Include="Models\Base.cs" />
     <Compile Include="Models\Data\Brand.cs" />
     <Compile Include="Models\Data\Model.cs" />
     <Compile Include="Models\Data\Modify.cs" />
@@ -75,14 +81,19 @@
     <Compile Include="Models\Identity\AspNetUserClaims.cs" />
     <Compile Include="Models\Identity\AspNetUserLogins.cs" />
     <Compile Include="Models\Identity\AspNetUsers.cs" />
-    <Compile Include="Models\IntPrimaryKeyModel.cs" />
+    <Compile Include="Models\IntPrimaryKey.cs" />
     <Compile Include="Models\Logger\Log.cs" />
-    <Compile Include="Models\StringPrimaryKeyModel.cs" />
+    <Compile Include="Models\StringPrimaryKey.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201505181431110_InitialCreate.resx">
+      <DependentUpon>201505181431110_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

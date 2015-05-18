@@ -5,24 +5,21 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CarsCompare.Database.Models.Data
 {
-    [Table("bcb_param_names")]
-    public class ParamName : BaseModel
-    {        
-        [Column("group_id")]
-        public int? GroupId { get; set; }
+    public class ParamName : Base
+    {
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public int ParamGroupId { get; set; }
 
-        [Column("name"), MaxLength(255)]
+        [Required, StringLength(255)]
         public string Name { get; set; }
 
-        [Column("units"), MaxLength(255)]
+        [Required, StringLength(255)]
         public string Units { get; set; }
 
-        [JsonIgnore]        
-        [ForeignKey("GroupId"), DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [JsonIgnore]                
         public virtual ParamGroup ParamGroup { get; set; }
 
-        [JsonIgnore]
-        [InverseProperty("ParamName")]
+        [JsonIgnore]        
         public virtual ICollection<Param> Params { get; set; }
     }
 }

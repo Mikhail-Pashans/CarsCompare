@@ -2,6 +2,7 @@
 using CarsCompare.Database.Models.Identity;
 using CarsCompare.Database.Models.Logger;
 using System;
+using System.Threading.Tasks;
 using Version = CarsCompare.Database.Models.Data.Version;
 
 namespace CarsCompare.Database
@@ -32,7 +33,6 @@ namespace CarsCompare.Database
 
         #endregion
 
-        void Commit();
-        void EnableValidation(bool enabled);
+        Task CommitAsync();        
     }
 }
