@@ -16,10 +16,10 @@ namespace CarsCompare.Database.Models.Data
         [JsonIgnore]                
         public virtual Brand Brand { get; set; }
 
-        [JsonIgnore]        
-        public virtual ICollection<Version> Versions { get; set; }
-
-        [JsonIgnore]        
+        [JsonIgnore]
         public virtual ICollection<Modify> Modifies { get; set; }
+        
+        [JsonIgnore]        
+        public virtual ICollection<Version> Versions { get; set; }        
     }
 }
