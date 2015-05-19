@@ -1,12 +1,12 @@
-﻿using System;
+﻿using CarsCompare.UI.ActionFilters;
+using CarsCompare.UI.Models;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin.Security;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin.Security;
-using CarsCompare.UI.Models;
 
 namespace CarsCompare.UI.Controllers
 {
@@ -32,9 +32,9 @@ namespace CarsCompare.UI.Controllers
             {
                 return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
             }
-            private set 
-            { 
-                _signInManager = value; 
+            private set
+            {
+                _signInManager = value;
             }
         }
 
@@ -52,6 +52,8 @@ namespace CarsCompare.UI.Controllers
 
         //
         // GET: /Manage/Index
+        [HttpGet]
+        [BrowserActionFilter]
         public async Task<ActionResult> Index(ManageMessageId? message)
         {
             ViewBag.StatusMessage =
@@ -78,6 +80,7 @@ namespace CarsCompare.UI.Controllers
         //
         // POST: /Manage/RemoveLogin
         [HttpPost]
+        [BrowserActionFilter]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> RemoveLogin(string loginProvider, string providerKey)
         {
@@ -101,6 +104,8 @@ namespace CarsCompare.UI.Controllers
 
         //
         // GET: /Manage/AddPhoneNumber
+        [HttpGet]
+        [BrowserActionFilter]
         public ActionResult AddPhoneNumber()
         {
             return View();
@@ -109,6 +114,7 @@ namespace CarsCompare.UI.Controllers
         //
         // POST: /Manage/AddPhoneNumber
         [HttpPost]
+        [BrowserActionFilter]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> AddPhoneNumber(AddPhoneNumberViewModel model)
         {
@@ -133,6 +139,7 @@ namespace CarsCompare.UI.Controllers
         //
         // POST: /Manage/EnableTwoFactorAuthentication
         [HttpPost]
+        [BrowserActionFilter]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> EnableTwoFactorAuthentication()
         {
@@ -148,6 +155,7 @@ namespace CarsCompare.UI.Controllers
         //
         // POST: /Manage/DisableTwoFactorAuthentication
         [HttpPost]
+        [BrowserActionFilter]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DisableTwoFactorAuthentication()
         {
@@ -162,6 +170,8 @@ namespace CarsCompare.UI.Controllers
 
         //
         // GET: /Manage/VerifyPhoneNumber
+        [HttpGet]
+        [BrowserActionFilter]
         public async Task<ActionResult> VerifyPhoneNumber(string phoneNumber)
         {
             var code = await UserManager.GenerateChangePhoneNumberTokenAsync(User.Identity.GetUserId(), phoneNumber);
@@ -172,6 +182,7 @@ namespace CarsCompare.UI.Controllers
         //
         // POST: /Manage/VerifyPhoneNumber
         [HttpPost]
+        [BrowserActionFilter]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> VerifyPhoneNumber(VerifyPhoneNumberViewModel model)
         {
@@ -196,6 +207,8 @@ namespace CarsCompare.UI.Controllers
 
         //
         // GET: /Manage/RemovePhoneNumber
+        [HttpGet]
+        [BrowserActionFilter]
         public async Task<ActionResult> RemovePhoneNumber()
         {
             var result = await UserManager.SetPhoneNumberAsync(User.Identity.GetUserId(), null);
@@ -213,6 +226,8 @@ namespace CarsCompare.UI.Controllers
 
         //
         // GET: /Manage/ChangePassword
+        [HttpGet]
+        [BrowserActionFilter]
         public ActionResult ChangePassword()
         {
             return View();
@@ -221,6 +236,7 @@ namespace CarsCompare.UI.Controllers
         //
         // POST: /Manage/ChangePassword
         [HttpPost]
+        [BrowserActionFilter]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> ChangePassword(ChangePasswordViewModel model)
         {
@@ -244,6 +260,8 @@ namespace CarsCompare.UI.Controllers
 
         //
         // GET: /Manage/SetPassword
+        [HttpGet]
+        [BrowserActionFilter]
         public ActionResult SetPassword()
         {
             return View();
@@ -252,6 +270,7 @@ namespace CarsCompare.UI.Controllers
         //
         // POST: /Manage/SetPassword
         [HttpPost]
+        [BrowserActionFilter]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> SetPassword(SetPasswordViewModel model)
         {
@@ -276,6 +295,8 @@ namespace CarsCompare.UI.Controllers
 
         //
         // GET: /Manage/ManageLogins
+        [HttpGet]
+        [BrowserActionFilter]
         public async Task<ActionResult> ManageLogins(ManageMessageId? message)
         {
             ViewBag.StatusMessage =
@@ -300,6 +321,7 @@ namespace CarsCompare.UI.Controllers
         //
         // POST: /Manage/LinkLogin
         [HttpPost]
+        [BrowserActionFilter]
         [ValidateAntiForgeryToken]
         public ActionResult LinkLogin(string provider)
         {
@@ -309,6 +331,8 @@ namespace CarsCompare.UI.Controllers
 
         //
         // GET: /Manage/LinkLoginCallback
+        [HttpGet]
+        [BrowserActionFilter]
         public async Task<ActionResult> LinkLoginCallback()
         {
             var loginInfo = await AuthenticationManager.GetExternalLoginInfoAsync(XsrfKey, User.Identity.GetUserId());
@@ -331,7 +355,7 @@ namespace CarsCompare.UI.Controllers
             base.Dispose(disposing);
         }
 
-#region Helpers
+        #region Helpers
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";
 
@@ -382,6 +406,6 @@ namespace CarsCompare.UI.Controllers
             Error
         }
 
-#endregion
+        #endregion
     }
 }

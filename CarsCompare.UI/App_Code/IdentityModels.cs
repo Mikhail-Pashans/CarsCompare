@@ -3,7 +3,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
-namespace CarsCompare.UI.Models
+namespace CarsCompare.UI
 {
     public class ApplicationUser : IdentityUser
     {

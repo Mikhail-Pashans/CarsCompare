@@ -1,4 +1,6 @@
-﻿using CarsCompare.UI.Models;
+﻿using CarsCompare.Domain.Enums;
+using CarsCompare.UI.ActionFilters;
+using CarsCompare.UI.ViewModels;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
@@ -43,7 +45,7 @@ namespace CarsCompare.UI.Controllers
         {
         }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
             UserManager = userManager;
             SignInManager = signInManager;
@@ -51,7 +53,9 @@ namespace CarsCompare.UI.Controllers
 
         //
         // GET: /Account/Login
+        [HttpGet]
         [AllowAnonymous]
+        [BrowserActionFilter]
         public ActionResult Login(string returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
@@ -62,6 +66,7 @@ namespace CarsCompare.UI.Controllers
         // POST: /Account/Login
         [HttpPost]
         [AllowAnonymous]
+        [BrowserActionFilter]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
@@ -90,7 +95,9 @@ namespace CarsCompare.UI.Controllers
 
         //
         // GET: /Account/VerifyCode
+        [HttpGet]
         [AllowAnonymous]
+        [BrowserActionFilter]
         public async Task<ActionResult> VerifyCode(string provider, string returnUrl, bool rememberMe)
         {
             // Require that the user has already logged in via username/password or external login
@@ -105,6 +112,7 @@ namespace CarsCompare.UI.Controllers
         // POST: /Account/VerifyCode
         [HttpPost]
         [AllowAnonymous]
+        [BrowserActionFilter]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> VerifyCode(VerifyCodeViewModel model)
         {
@@ -117,7 +125,7 @@ namespace CarsCompare.UI.Controllers
             // If a user enters incorrect codes for a specified amount of time then the user account 
             // will be locked out for a specified amount of time. 
             // You can configure the account lockout settings in IdentityConfig
-            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent:  model.RememberMe, rememberBrowser: model.RememberBrowser);
+            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent: model.RememberMe, rememberBrowser: model.RememberBrowser);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -133,7 +141,9 @@ namespace CarsCompare.UI.Controllers
 
         //
         // GET: /Account/Register
+        [HttpGet]
         [AllowAnonymous]
+        [BrowserActionFilter]
         public ActionResult Register()
         {
             return View();
@@ -143,6 +153,7 @@ namespace CarsCompare.UI.Controllers
         // POST: /Account/Register
         [HttpPost]
         [AllowAnonymous]
+        [BrowserActionFilter]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
@@ -152,10 +163,10 @@ namespace CarsCompare.UI.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    await UserManager.AddToRoleAsync(user.Id, "Viewer");
-                    
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
+                    await UserManager.AddToRoleAsync(user.Id, RoleTypes.Viewer.ToString());
+
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
@@ -173,7 +184,9 @@ namespace CarsCompare.UI.Controllers
 
         //
         // GET: /Account/ConfirmEmail
+        [HttpGet]
         [AllowAnonymous]
+        [BrowserActionFilter]
         public async Task<ActionResult> ConfirmEmail(string userId, string code)
         {
             if (userId == null || code == null)
@@ -186,7 +199,9 @@ namespace CarsCompare.UI.Controllers
 
         //
         // GET: /Account/ForgotPassword
+        [HttpGet]
         [AllowAnonymous]
+        [BrowserActionFilter]
         public ActionResult ForgotPassword()
         {
             return View();
@@ -196,6 +211,7 @@ namespace CarsCompare.UI.Controllers
         // POST: /Account/ForgotPassword
         [HttpPost]
         [AllowAnonymous]
+        [BrowserActionFilter]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> ForgotPassword(ForgotPasswordViewModel model)
         {
@@ -222,7 +238,9 @@ namespace CarsCompare.UI.Controllers
 
         //
         // GET: /Account/ForgotPasswordConfirmation
+        [HttpGet]
         [AllowAnonymous]
+        [BrowserActionFilter]
         public ActionResult ForgotPasswordConfirmation()
         {
             return View();
@@ -230,7 +248,9 @@ namespace CarsCompare.UI.Controllers
 
         //
         // GET: /Account/ResetPassword
+        [HttpGet]
         [AllowAnonymous]
+        [BrowserActionFilter]
         public ActionResult ResetPassword(string code)
         {
             return code == null ? View("Error") : View();
@@ -240,6 +260,7 @@ namespace CarsCompare.UI.Controllers
         // POST: /Account/ResetPassword
         [HttpPost]
         [AllowAnonymous]
+        [BrowserActionFilter]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> ResetPassword(ResetPasswordViewModel model)
         {
@@ -264,7 +285,9 @@ namespace CarsCompare.UI.Controllers
 
         //
         // GET: /Account/ResetPasswordConfirmation
+        [HttpGet]
         [AllowAnonymous]
+        [BrowserActionFilter]
         public ActionResult ResetPasswordConfirmation()
         {
             return View();
@@ -274,6 +297,7 @@ namespace CarsCompare.UI.Controllers
         // POST: /Account/ExternalLogin
         [HttpPost]
         [AllowAnonymous]
+        [BrowserActionFilter]
         [ValidateAntiForgeryToken]
         public ActionResult ExternalLogin(string provider, string returnUrl)
         {
@@ -283,7 +307,9 @@ namespace CarsCompare.UI.Controllers
 
         //
         // GET: /Account/SendCode
+        [HttpGet]
         [AllowAnonymous]
+        [BrowserActionFilter]
         public async Task<ActionResult> SendCode(string returnUrl, bool rememberMe)
         {
             var userId = await SignInManager.GetVerifiedUserIdAsync();
@@ -300,6 +326,7 @@ namespace CarsCompare.UI.Controllers
         // POST: /Account/SendCode
         [HttpPost]
         [AllowAnonymous]
+        [BrowserActionFilter]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> SendCode(SendCodeViewModel model)
         {
@@ -318,7 +345,9 @@ namespace CarsCompare.UI.Controllers
 
         //
         // GET: /Account/ExternalLoginCallback
+        [HttpGet]
         [AllowAnonymous]
+        [BrowserActionFilter]
         public async Task<ActionResult> ExternalLoginCallback(string returnUrl)
         {
             var loginInfo = await AuthenticationManager.GetExternalLoginInfoAsync();
@@ -350,6 +379,7 @@ namespace CarsCompare.UI.Controllers
         // POST: /Account/ExternalLoginConfirmation
         [HttpPost]
         [AllowAnonymous]
+        [BrowserActionFilter]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> ExternalLoginConfirmation(ExternalLoginConfirmationViewModel model, string returnUrl)
         {
@@ -387,6 +417,7 @@ namespace CarsCompare.UI.Controllers
         //
         // POST: /Account/LogOff
         [HttpPost]
+        [BrowserActionFilter]
         [ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
@@ -396,7 +427,9 @@ namespace CarsCompare.UI.Controllers
 
         //
         // GET: /Account/ExternalLoginFailure
+        [HttpGet]
         [AllowAnonymous]
+        [BrowserActionFilter]
         public ActionResult ExternalLoginFailure()
         {
             return View();

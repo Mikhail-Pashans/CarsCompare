@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace CarsCompare.UI.Models
+namespace CarsCompare.UI.ViewModels
 {
     public class ExternalLoginConfirmationViewModel
     {

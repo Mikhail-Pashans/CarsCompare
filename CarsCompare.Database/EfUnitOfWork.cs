@@ -127,7 +127,7 @@ namespace CarsCompare.Database
 
         #endregion
 
-        public Task CommitAsync()
+        public Task<int> CommitAsync()
         {
             try
             {

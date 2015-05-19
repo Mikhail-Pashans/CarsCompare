@@ -33,6 +33,6 @@ namespace CarsCompare.Database
 
         #endregion
 
-        Task CommitAsync();        
+        Task<int> CommitAsync();
     }
 }

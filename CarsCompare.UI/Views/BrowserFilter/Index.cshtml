@@ -1,0 +1,55 @@
+﻿@model dynamic
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <meta charset="utf-8" />
+    <title>"CarsCompare: Браузер Не Поддерживается</title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700" rel="stylesheet" type="text/css">
+    @Styles.Render("~/bundles/css/basestyles")
+</head>
+<body>
+    <div class="page-wrapper">
+        <div class="header-wrapper clrfix">
+            <a class="site-logo fl needs-confirm" href="@Url.Content("~/")">
+                <img src="@Url.Content("~/Content/Images/header-logo.png")" />
+            </a>
+        </div>
+        <div class="content-wrapper clrfix">
+            <div class="content-area not-supported clrfix ac">
+                <h1 class="title">This site is best viewed<br />Используйте один из этих браузеров</h1>
+                <div class="fourths">
+                    <img src="@Url.Content("~/Content/Images/browser-chrome.png")" />
+                    <h2 class="subtitle">Chrome</h2>
+                    <a href="https://support.google.com/chrome/answer/95346?hl=ru" target="_blank" class="btn lg">Скачать</a>
+                </div>
+                <div class="fourths">
+                    <img src="@Url.Content("~/Content/Images/browser-ff.png")" />
+                    <h2 class="subtitle">Firefox</h2>
+                    <a href="https://www.mozilla.org/ru/firefox/new/" target="_blank" class="btn lg">Скачать</a>
+                </div>
+                <div class="fourths">
+                    <img src="@Url.Content("~/Content/Images/browser-opera.png")" />
+                    <h2 class="subtitle">Opera</h2>
+                    <a href="http://www.opera.com/ru/computer/windows" target="_blank" class="btn lg">Скачать</a>
+                </div>
+                <div class="fourths">
+                    <img src="@Url.Content("~/Content/Images/browser-safari.png")" />
+                    <h2 class="subtitle">Safari</h2>
+                    <a href="https://support.apple.com/ru_RU/downloads/safari" target="_blank" class="btn lg">Скачать</a>
+                </div>
+                <div class="fourths">
+                    <img src="@Url.Content("~/Content/Images/browser-ie.png")" />
+                    <h2 class="subtitle">Internet Explorer 9+</h2>
+                    <a href="http://windows.microsoft.com/ru-ru/internet-explorer/download-ie" target="_blank" class="btn lg">Скачать</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

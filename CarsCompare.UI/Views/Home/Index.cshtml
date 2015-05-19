@@ -1,4 +1,7 @@
-﻿@{
+﻿@using CarsCompare.UI.ViewModels
+@model HomeIndexViewModel
+
+@{
     ViewBag.Title = "Home Page";
 }
 
@@ -16,16 +19,91 @@
             enables a clean separation of concerns and gives you full control over markup
             for enjoyable, agile development.
         </p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+        <p>
+            <a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a>
+        </p>
     </div>
     <div class="col-md-4">
         <h2>Get more libraries</h2>
         <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
+        <p>
+            <a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a>
+        </p>
     </div>
     <div class="col-md-4">
         <h2>Web Hosting</h2>
         <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+        <p>
+            <a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a>
+        </p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <select class="form-control selectpicker" multiple data-width="100%" title="Выберите бренд..." name="brands[]">
+            @foreach (var item in Model.Brands)
+            {
+                <option value="@item.Id">@item.Name</option>
+            }
+        </select>
+    </div>
+
+    <div class="col-md-4">
+        <select class="form-control selectpicker" multiple data-width="100%" title="Выберите модель..." name="models[]">
+            @foreach (var item in Model.Models)
+            {
+                <option value="@item.Id">@item.Name</option>
+            }
+        </select>
+    </div>
+
+    <div class="col-md-4">
+        <select class="form-control selectpicker" multiple data-width="100%" title="Выберите модификацию..." name="modifies[]">
+            @foreach (var item in Model.Modifies)
+            {
+                <option value="@item.Id">@item.Name (@item.YearFrom - @item.YearTo)</option>
+            }
+        </select>
+    </div>
+</div>
+<br />
+<div class="row">
+    <div class="col-md-4">
+        <select class="form-control selectpicker" multiple data-width="100%" title="Выберите версию..." name="versions[]">
+            @foreach (var item in Model.Versions)
+            {
+                <option value="@item.Id">@item.Name (@item.Gen + @item.Mod)</option>
+            }
+        </select>
+    </div>
+
+    <div class="col-md-4">
+        <select class="form-control selectpicker" multiple data-width="100%" title="Выберите параметр..." name="params[]">
+            @foreach (var item in Model.Params)
+            {
+                <option value="@item.Id">@item.Value</option>
+            }
+        </select>
+    </div>
+
+    <div class="col-md-4">
+        <select class="form-control selectpicker" multiple data-width="100%" title="Выберите название параметра..." name="paramNames[]">
+            @foreach (var item in Model.ParamNames)
+            {
+                <option value="@item.Id">@item.Name (@item.Units)</option>
+            }
+        </select>
+    </div>
+</div>
+<br />
+<div class="row">
+    <div class="col-md-4">
+        <select class="form-control selectpicker" multiple data-width="100%" title="Выберите группу параметров..." name="paramGroups[]">
+            @foreach (var item in Model.ParamGroups)
+            {
+                <option value="@item.Id">@item.Name</option>
+            }
+        </select>
     </div>
 </div>

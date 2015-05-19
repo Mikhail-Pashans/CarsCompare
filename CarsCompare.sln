@@ -16,12 +16,16 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarsCompare.UI", "CarsCompa
 	ProjectSection(ProjectDependencies) = postProject
 		{62D9B689-641E-4E06-97D5-DDF2394301E6} = {62D9B689-641E-4E06-97D5-DDF2394301E6}
 		{B5DBAE90-EBBD-4708-8C7F-1551F8767EFD} = {B5DBAE90-EBBD-4708-8C7F-1551F8767EFD}
+		{58A583C2-3DE4-4F81-BBF5-33F900860410} = {58A583C2-3DE4-4F81-BBF5-33F900860410}
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarsCompare.Domain", "CarsCompare.Domain\CarsCompare.Domain.csproj", "{B5DBAE90-EBBD-4708-8C7F-1551F8767EFD}"
 	ProjectSection(ProjectDependencies) = postProject
 		{62D9B689-641E-4E06-97D5-DDF2394301E6} = {62D9B689-641E-4E06-97D5-DDF2394301E6}
+		{58A583C2-3DE4-4F81-BBF5-33F900860410} = {58A583C2-3DE4-4F81-BBF5-33F900860410}
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarsCompare.Logger", "CarsCompare.Logger\CarsCompare.Logger.csproj", "{58A583C2-3DE4-4F81-BBF5-33F900860410}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,6 +45,10 @@ Global
 		{B5DBAE90-EBBD-4708-8C7F-1551F8767EFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B5DBAE90-EBBD-4708-8C7F-1551F8767EFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B5DBAE90-EBBD-4708-8C7F-1551F8767EFD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{58A583C2-3DE4-4F81-BBF5-33F900860410}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{58A583C2-3DE4-4F81-BBF5-33F900860410}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{58A583C2-3DE4-4F81-BBF5-33F900860410}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{58A583C2-3DE4-4F81-BBF5-33F900860410}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

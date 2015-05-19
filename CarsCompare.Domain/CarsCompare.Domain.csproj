@@ -40,6 +40,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BusinessObjects\BaseBO.cs" />
+    <Compile Include="BusinessObjects\BrandBO.cs" />
+    <Compile Include="BusinessObjects\ModelBO.cs" />
+    <Compile Include="BusinessObjects\ModifyBO.cs" />
+    <Compile Include="BusinessObjects\ParamBO.cs" />
+    <Compile Include="BusinessObjects\ParamGroupBO.cs" />
+    <Compile Include="BusinessObjects\ParamNameBO.cs" />
+    <Compile Include="BusinessObjects\VersionBO.cs" />
+    <Compile Include="Enums\BrowserTypes.cs" />
+    <Compile Include="Enums\RoleTypes.cs" />
     <Compile Include="Models\BaseModel.cs" />
     <Compile Include="Models\BrandModel.cs" />
     <Compile Include="Models\LogModel.cs" />
@@ -55,6 +64,10 @@
     <ProjectReference Include="..\CarsCompare.Database\CarsCompare.Database.csproj">
       <Project>{62d9b689-641e-4e06-97d5-ddf2394301e6}</Project>
       <Name>CarsCompare.Database</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CarsCompare.Logger\CarsCompare.Logger.csproj">
+      <Project>{58a583c2-3de4-4f81-bbf5-33f900860410}</Project>
+      <Name>CarsCompare.Logger</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
