@@ -21,7 +21,7 @@ namespace CarsCompare.UI.Controllers
             _cache = cache;
             _logWriter = new LogWriter();
         }
-        
+
         [HttpGet]
         [BrowserActionFilter]
         public async Task<ActionResult> Index()
@@ -52,7 +52,7 @@ namespace CarsCompare.UI.Controllers
                 ParamNames = paramNameViewModels,
                 ParamGroups = paramGroupViewModels
             };
-            
+
             return View(result);
         }
 
