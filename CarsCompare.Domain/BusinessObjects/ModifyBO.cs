@@ -19,6 +19,14 @@ namespace CarsCompare.Domain.BusinessObjects
             return modifyModels;
         }
 
+        public async Task<IEnumerable<ModifyModel>> GetModifiesByModelIdAndVersionId(int modelId, int versionId)
+        {
+            var modifies = await UnitOfWork.ModifyRepository.FindAsync(m => m.Model.Id == modelId && m.Version.Id == versionId);
+            var modifyModels = modifies.Select(Map).ToList();
+
+            return modifyModels;
+        }
+
         public ModifyModel Map(Modify modify)
         {
             if (modify == null)

@@ -19,6 +19,14 @@ namespace CarsCompare.Domain.BusinessObjects
             return versionModels;
         }
 
+        public async Task<IEnumerable<VersionModel>> GetVersionsByModelId(int modelId)
+        {
+            var versions = await UnitOfWork.VersionRepository.FindAsync(v => v.Model.Id == modelId);
+            var versionModels = versions.Select(Map).ToList();
+
+            return versionModels;
+        }
+
         public VersionModel Map(Version version)
         {
             if (version == null)

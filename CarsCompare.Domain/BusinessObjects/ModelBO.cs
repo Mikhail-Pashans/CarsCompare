@@ -19,6 +19,14 @@ namespace CarsCompare.Domain.BusinessObjects
             return modelModels;
         }
 
+        public async Task<IEnumerable<ModelModel>> GetModelsByBrandId(int brandId)
+        {
+            var models = await UnitOfWork.ModelRepository.FindAsync(m => m.Brand.Id == brandId);
+            var modelModels = models.Select(Map).ToList();
+
+            return modelModels;
+        }
+
         public ModelModel Map(Model model)
         {
             if (model == null)
