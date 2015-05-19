@@ -1,6 +1,5 @@
 ﻿using CarsCompare.Logger;
 using System;
-using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
@@ -28,11 +27,6 @@ namespace CarsCompare.UI
         protected void Session_Start(object sender, EventArgs e)
         {
             string sessionId = Session.SessionID;
-        }
-
-        protected async void Application_Disposed(object sender, EventArgs e)
-        {
-            await _logWriter.WriteInfoAsync("CarsCompare website disposed.");
         }
 
         protected async void Application_End(object sender, EventArgs e)
