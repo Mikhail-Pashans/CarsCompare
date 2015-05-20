@@ -10,7 +10,7 @@
         <div class="col-md-4">
             <select class="form-control selectpicker" data-width="100%" title="Выберите бренд..." name="brands[]">
                 <option value="title">Выберите бренд...</option>
-                @foreach (var item in Model.Brands)
+                @foreach (var item in Model.Brands.OrderBy(b => b.Name))
                 {
                     <option value="@item.Id">@item.Name</option>
                 }
@@ -37,7 +37,7 @@
             </select>
         </div>
     </div>
-    <br />
+    <br/>
     <div class="row">
         <div class="col-md-4">
             <select class="form-control selectpicker" data-width="100%" title="Выберите версию..." name="versions[]">
@@ -56,7 +56,7 @@
                 {
                     <option value="@item.Id">@item.Name</option>
                 }
-            </select>            
+            </select>
         </div>
 
         <div class="col-md-4">
@@ -69,7 +69,7 @@
             </select>
         </div>
     </div>
-    <br />
+    <br/>
     <div class="row">
         <div class="col-md-4">
             <select class="form-control selectpicker" data-width="100%" title="Выберите параметр..." name="params[]">
