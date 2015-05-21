@@ -1,1 +1,1 @@
-﻿var app = angular.module('carsCompareApp', []);
+﻿angular.module('carsCompareApp', [])

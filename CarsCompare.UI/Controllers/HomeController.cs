@@ -3,7 +3,6 @@ using CarsCompare.Logger;
 using CarsCompare.UI.ActionFilters;
 using CarsCompare.UI.Cache;
 using CarsCompare.UI.ViewModels;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 
@@ -32,7 +31,7 @@ namespace CarsCompare.UI.Controllers
             return View();
         }
 
-        [HttpPost]
+        [HttpGet]
         [BrowserActionFilter]
         public async Task<JsonResult> GetData()
         {
@@ -63,7 +62,7 @@ namespace CarsCompare.UI.Controllers
                 ParamGroups = paramGroupViewModels
             };
 
-            return Json(result);
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]
