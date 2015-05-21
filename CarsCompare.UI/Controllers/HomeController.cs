@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
-using CarsCompare.Database;
+﻿using CarsCompare.Database;
 using CarsCompare.Logger;
 using CarsCompare.UI.ActionFilters;
 using CarsCompare.UI.Cache;
 using CarsCompare.UI.ViewModels;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 
@@ -32,7 +32,7 @@ namespace CarsCompare.UI.Controllers
             return View();
         }
 
-        [HttpGet]
+        [HttpPost]
         [BrowserActionFilter]
         public async Task<JsonResult> GetData()
         {
@@ -44,58 +44,26 @@ namespace CarsCompare.UI.Controllers
             var paramNameSearch = new ParamNameSearch(_unitOfWork, _cache, _logWriter);
             var paramGroupSearch = new ParamGroupSearch(_unitOfWork, _cache, _logWriter);
 
-            //var brandViewModels = await brandSearch.GetBrands();
-            //var modelViewModels = await modelSearch.GetModels();
-            //var versionViewModels = await versionSearch.GetVersions();
-            //var modifyViewModels = await modifySearch.GetModifies();
-            //var paramViewModels = await paramSearch.GetParams();
-            //var paramNameViewModels = await paramNameSearch.GetParamNames();
-            //var paramGroupViewModels = await paramGroupSearch.GetParamGroups();
-
-            var brandViewModels = brandSearch.GetBrands();
-            var modelViewModels = modelSearch.GetModels();
-            var modifyViewModels = modifySearch.GetModifies();
-            var versionViewModels = versionSearch.GetVersions();
-            var paramViewModels = paramSearch.GetParams();
-            var paramNameViewModels = paramNameSearch.GetParamNames();
-            var paramGroupViewModels = paramGroupSearch.GetParamGroups();
-
-            var taskList = new List<Task>
-            {
-                brandViewModels,
-                modelViewModels,
-                versionViewModels,
-                modifyViewModels,
-                paramViewModels,
-                paramNameViewModels,
-                paramGroupViewModels
-            };
-           
-            await Task.WhenAll(taskList);
-
-            //var result = new HomeIndexViewModel
-            //{
-            //    Brands = brandViewModels,
-            //    Models = modelViewModels,
-            //    Modifies = modifyViewModels,
-            //    Versions = versionViewModels,
-            //    Params = paramViewModels,
-            //    ParamNames = paramNameViewModels,
-            //    ParamGroups = paramGroupViewModels
-            //};
+            var brandViewModels = await brandSearch.GetBrands();
+            var modelViewModels = await modelSearch.GetModels();
+            var versionViewModels = await versionSearch.GetVersions();
+            var modifyViewModels = await modifySearch.GetModifies();
+            var paramViewModels = await paramSearch.GetParams();
+            var paramNameViewModels = await paramNameSearch.GetParamNames();
+            var paramGroupViewModels = await paramGroupSearch.GetParamGroups();
 
             var result = new HomeIndexViewModel
             {
-                Brands = await brandViewModels,
-                Models = await modelViewModels,
-                Modifies = await modifyViewModels,
-                Versions = await versionViewModels,
-                Params = await paramViewModels,
-                ParamNames = await paramNameViewModels,
-                ParamGroups = await paramGroupViewModels
+                Brands = brandViewModels,
+                Models = modelViewModels,
+                Versions = versionViewModels,
+                Modifies = modifyViewModels,
+                Params = paramViewModels,
+                ParamNames = paramNameViewModels,
+                ParamGroups = paramGroupViewModels
             };
 
-            return Json(result, JsonRequestBehavior.AllowGet);
+            return Json(result);
         }
 
         [HttpGet]
