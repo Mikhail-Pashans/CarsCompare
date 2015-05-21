@@ -11,6 +11,6 @@ carsCompareApp.controller("compareCtrl", function compareCtrl($scope, dataServic
 
     var promiseObj = dataService.getData(conf);
     promiseObj.then(function (data) {
-        $scope.response = data;        
+        $scope.response = data;
     });
-})
+});

@@ -22,4 +22,4 @@ carsCompareApp.factory('dataService', function ($http, $q) {
             return deferred.promise;
         }
     }
-})
+});
