@@ -8,7 +8,7 @@ namespace CarsCompare.UI.ViewModels
         [JsonProperty("id")]
         public int Id { get; set; }
 
-        [JsonProperty("name")]
+        [JsonProperty("value")]
         public string Value { get; set; }
 
         [JsonProperty("modify")]

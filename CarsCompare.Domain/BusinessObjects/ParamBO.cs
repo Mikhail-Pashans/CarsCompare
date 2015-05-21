@@ -14,7 +14,7 @@ namespace CarsCompare.Domain.BusinessObjects
         public async Task<IEnumerable<ParamModel>> GetParams()
         {
             var parameters = await UnitOfWork.ParamRepository.GetAllAsync();
-            var paramModels = parameters.Take(1000).Select(Map).ToList();
+            var paramModels = parameters.Take(50000).Select(Map).ToList();
 
             return paramModels;
         }

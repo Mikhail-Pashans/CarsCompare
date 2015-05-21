@@ -14,7 +14,7 @@ namespace CarsCompare.Domain.BusinessObjects
         public async Task<IEnumerable<BrandModel>> GetBrands()
         {
             var brands = await UnitOfWork.BrandRepository.GetAllAsync();
-            var brandModels = brands.Select(Map).ToList();
+            var brandModels = brands.Select(Map).OrderBy(b => b.Name).ToList();
 
             return brandModels;
         }

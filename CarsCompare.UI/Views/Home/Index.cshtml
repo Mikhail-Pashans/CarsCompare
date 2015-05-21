@@ -1,12 +1,14 @@
-﻿@using CarsCompare.UI.ViewModels
-@model HomeIndexViewModel
+﻿@*@using CarsCompare.UI.ViewModels
+@model HomeIndexViewModel*@
 
 @{
     ViewBag.Title = "CarsCompare - Главная страница";
 }
 
+@Scripts.Render("~/bundles/angular")
+
 <div class="jumbotron">
-    <div class="row">
+    @*<div class="row">
         <div class="col-md-4">
             <select class="form-control selectpicker" data-width="100%" title="Выберите бренд..." name="brands[]">
                 <option value="title">Выберите бренд...</option>
@@ -80,5 +82,77 @@
                 }
             </select>
         </div>
+    </div>*@
+    <div data-ng-app="carsCompareApp" data-ng-controller="compareCtrl">
+        <div class="row">
+            <div class="col-md-4">
+                <select class="form-control selectpicker" data-width="100%" title="Выберите бренд..." name="brands[]">
+                    <option value="title">Выберите бренд...</option>
+                    <option data-ng-repeat="brand in brands" value="{{ brand.id }}">
+                        {{ brand.name }}
+                    </option>
+                </select>
+            </div>
+
+            <div class="col-md-4">
+                <select class="form-control selectpicker" data-width="100%" title="Выберите модель..." name="models[]">
+                    <option value="title">Выберите модель...</option>
+                    <option data-ng-repeat="model in models" value="{{ model.id }}">
+                        {{ model.name }}
+                    </option>
+                </select>
+            </div>
+
+            <div class="col-md-4">
+                <select class="form-control selectpicker" data-width="100%" title="Выберите версию..." name="versions[]">
+                    <option value="title">Выберите версию...</option>
+                    <option data-ng-repeat="version in versions" value="{{ version.id }}">
+                        {{ version.name + '(' + version.gen + ' + ' + version.mod + ')' }}
+                    </option>
+                </select>
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-4">
+                <select class="form-control selectpicker" data-width="100%" title="Выберите модификацию..." name="modifies[]">
+                    <option value="title">Выберите модификацию...</option>
+                    <option data-ng-repeat="modify in modifies" value="{{ modify.id }}">
+                        {{ modify.name + '(' + modify.yearFrom + ' - ' + modify.yearTo + ')' }}
+                    </option>
+                </select>
+            </div>
+
+            <div class="col-md-4">
+                <select class="form-control selectpicker" data-width="100%" title="Выберите группу параметров..." name="paramGroups[]">
+                    <option value="title">Выберите группу параметров...</option>
+                    <option data-ng-repeat="paramGroup in paramGroups" value="{{ paramGroup.id }}">
+                        {{ paramGroup.name }}
+                    </option>
+                </select>
+            </div>
+
+            <div class="col-md-4">
+                <select class="form-control selectpicker" data-width="100%" title="Выберите название параметра..." name="paramNames[]">
+                    <option value="title">Выберите название параметра...</option>
+                    <option data-ng-repeat="paramName in paramNames" value="{{ paramName.id }}">
+                        {{ paramName.name + '(' + paramName.units + ')' }}
+                    </option>
+                </select>
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-4">
+                <select class="form-control selectpicker" data-width="100%" title="Выберите параметр..." name="params[]">
+                    <option value="title">Выберите параметр...</option>
+                    <option data-ng-repeat="param in params" value="{{ param.id }}">
+                        {{ param.value }}
+                    </option>
+                </select>
+            </div>
+        </div>
     </div>
 </div>
+
+@Scripts.Render("~/bundles/customScripts")
