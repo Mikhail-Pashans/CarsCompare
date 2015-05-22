@@ -39,5 +39,22 @@ namespace CarsCompare.UI
 
             return versionViewModels;
         }
+
+        public async Task<IEnumerable<VersionViewModel>> GetVersionsByModelId(int modelId)
+        {
+            IQueryable<VersionModel> versions = _cache.Get<IQueryable<VersionModel>>(string.Format("versions-{0}", modelId));
+
+            if (versions == null)
+            {
+                var versionBo = new VersionBO(_unitOfWork);
+                var versionModels = await versionBo.GetVersionsByModelId(modelId);
+                versions = versionModels.AsQueryable();
+                _cache.Set(string.Format("versions-{0}", modelId), versions, 10);
+            }
+
+            var versionViewModels = versions.Select(VersionViewModel.Map);
+
+            return versionViewModels;
+        }
     }
 }

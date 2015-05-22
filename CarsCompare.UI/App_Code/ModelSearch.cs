@@ -39,5 +39,22 @@ namespace CarsCompare.UI
 
             return modelViewModels;
         }
+
+        public async Task<IEnumerable<ModelViewModel>> GetModelsByBrandId(int brandId)
+        {
+            IQueryable<ModelModel> models = _cache.Get<IQueryable<ModelModel>>(string.Format("models-{0}", brandId));
+
+            if (models == null)
+            {
+                var modelBo = new ModelBO(_unitOfWork);
+                var modelModels = await modelBo.GetModelsByBrandId(brandId);
+                models = modelModels.AsQueryable();
+                _cache.Set(string.Format("models-{0}", brandId), models, 10);
+            }
+
+            var modelViewModels = models.Select(ModelViewModel.Map);
+
+            return modelViewModels;
+        }
     }
 }

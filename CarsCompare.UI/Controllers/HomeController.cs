@@ -31,35 +31,99 @@ namespace CarsCompare.UI.Controllers
             return View();
         }
 
+        //[HttpGet]
+        //[BrowserActionFilter]
+        //public async Task<JsonResult> GetData()
+        //{
+        //    var brandSearch = new BrandSearch(_unitOfWork, _cache, _logWriter);
+        //    var modelSearch = new ModelSearch(_unitOfWork, _cache, _logWriter);
+        //    var versionSearch = new VersionSearch(_unitOfWork, _cache, _logWriter);
+        //    var modifySearch = new ModifySearch(_unitOfWork, _cache, _logWriter);
+        //    var paramSearch = new ParamSearch(_unitOfWork, _cache, _logWriter);
+        //    var paramNameSearch = new ParamNameSearch(_unitOfWork, _cache, _logWriter);
+        //    var paramGroupSearch = new ParamGroupSearch(_unitOfWork, _cache, _logWriter);
+
+        //    var brandViewModels = await brandSearch.GetBrands();
+        //    var modelViewModels = await modelSearch.GetModels();
+        //    var versionViewModels = await versionSearch.GetVersions();
+        //    var modifyViewModels = await modifySearch.GetModifies();
+        //    var paramViewModels = await paramSearch.GetParams();
+        //    var paramNameViewModels = await paramNameSearch.GetParamNames();
+        //    var paramGroupViewModels = await paramGroupSearch.GetParamGroups();
+
+        //    var result = new HomeIndexViewModel
+        //    {
+        //        Brands = brandViewModels,
+        //        Models = modelViewModels,
+        //        Versions = versionViewModels,
+        //        Modifies = modifyViewModels,
+        //        Params = paramViewModels,
+        //        ParamNames = paramNameViewModels,
+        //        ParamGroups = paramGroupViewModels
+        //    };
+
+        //    return Json(result, JsonRequestBehavior.AllowGet);
+        //}
+
         [HttpGet]
         [BrowserActionFilter]
-        public async Task<JsonResult> GetData()
+        public async Task<JsonResult> GetBrands()
         {
-            var brandSearch = new BrandSearch(_unitOfWork, _cache, _logWriter);
-            var modelSearch = new ModelSearch(_unitOfWork, _cache, _logWriter);
-            var versionSearch = new VersionSearch(_unitOfWork, _cache, _logWriter);
-            var modifySearch = new ModifySearch(_unitOfWork, _cache, _logWriter);
-            var paramSearch = new ParamSearch(_unitOfWork, _cache, _logWriter);
-            var paramNameSearch = new ParamNameSearch(_unitOfWork, _cache, _logWriter);
-            var paramGroupSearch = new ParamGroupSearch(_unitOfWork, _cache, _logWriter);
+            var brandSearch = new BrandSearch(_unitOfWork, _cache, _logWriter);           
 
-            var brandViewModels = await brandSearch.GetBrands();
-            var modelViewModels = await modelSearch.GetModels();
-            var versionViewModels = await versionSearch.GetVersions();
-            var modifyViewModels = await modifySearch.GetModifies();
-            var paramViewModels = await paramSearch.GetParams();
-            var paramNameViewModels = await paramNameSearch.GetParamNames();
-            var paramGroupViewModels = await paramGroupSearch.GetParamGroups();
+            var brandViewModels = await brandSearch.GetBrands();           
 
             var result = new HomeIndexViewModel
             {
-                Brands = brandViewModels,
-                Models = modelViewModels,
-                Versions = versionViewModels,
-                Modifies = modifyViewModels,
-                Params = paramViewModels,
-                ParamNames = paramNameViewModels,
-                ParamGroups = paramGroupViewModels
+                Brands = brandViewModels                
+            };
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        [BrowserActionFilter]
+        public async Task<JsonResult> GetModelsByBrandId(int brandId)
+        {
+            var modelSearch = new ModelSearch(_unitOfWork, _cache, _logWriter);
+
+            var modelViewModels = await modelSearch.GetModelsByBrandId(brandId);
+
+            var result = new HomeIndexViewModel
+            {
+                Models = modelViewModels
+            };
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        [BrowserActionFilter]
+        public async Task<JsonResult> GetVersionsByModelId(int modelId)
+        {
+            var versionSearch = new VersionSearch(_unitOfWork, _cache, _logWriter);
+
+            var versionViewModels = await versionSearch.GetVersionsByModelId(modelId);
+
+            var result = new HomeIndexViewModel
+            {
+                Versions = versionViewModels
+            };
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        [BrowserActionFilter]
+        public async Task<JsonResult> GetModifiesByModelIdAndVersionId(int modelId, int versionId)
+        {
+            var modifySearch = new ModifySearch(_unitOfWork, _cache, _logWriter);
+
+            var modifyViewModels = await modifySearch.GetModifiesByModelIdAndVersionId(modelId, versionId);
+
+            var result = new HomeIndexViewModel
+            {
+                Modifies = modifyViewModels
             };
 
             return Json(result, JsonRequestBehavior.AllowGet);

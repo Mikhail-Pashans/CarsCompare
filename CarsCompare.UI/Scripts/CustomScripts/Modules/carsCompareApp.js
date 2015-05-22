@@ -1,1 +1,1 @@
-﻿angular.module('carsCompareApp', []);
+﻿angular.module('carsCompareApp', ['ui.bootstrap'])

@@ -1,25 +1,25 @@
 ﻿var carsCompareApp = angular.module('carsCompareApp');
 
-carsCompareApp.factory('dataService', function ($http, $q) {
+carsCompareApp.factory('dataService', function ($http, $q, $log) {
     'use strict';
 
     return {
         getData: function (conf) {
             var deferred = $q.defer();
             $http(conf)
-                .success(function (data, status, headers, config) {
-                    deferred.resolve(data);
-                    console.log('Код ответа: ' + status);
-                    console.log('Объём данных: ' + headers('content-length'));
-                    console.log(config);
-                }).error(function (data, status, headers, config) {
-                    deferred.reject(status);
-                    console.log('Код ответа: ' + status);
-                    console.log('Объём данных: ' + headers('content-length'));
-                    console.log(config);
+                .success(function (response, status, headers, config) {
+                    deferred.resolve(response);
+                    $log.info('Код ответа: ' + status);
+                    $log.info('Объём данных: ' + headers('content-length'));
+                    $log.info(config);
+                }).error(function (response, status, headers, config) {
+                    deferred.reject(response);
+                    $log.error('Код ответа: ' + status);
+                    $log.error('Объём данных: ' + headers('content-length'));
+                    $log.error(config);
                 });
 
             return deferred.promise;
         }
     }
-});
+})

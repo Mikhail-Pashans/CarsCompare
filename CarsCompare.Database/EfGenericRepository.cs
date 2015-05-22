@@ -43,7 +43,7 @@ namespace CarsCompare.Database
                 }
 
                 return _dbSet.Where(predicate).AsEnumerable();
-            });            
+            });
         }
 
         public Task<int> CountAsync()
@@ -84,7 +84,7 @@ namespace CarsCompare.Database
                     throw new ArgumentNullException("entity");
 
                 _dbSet.Add(entity);
-            });            
+            });
         }
 
         public Task DeleteAsync(T entity)

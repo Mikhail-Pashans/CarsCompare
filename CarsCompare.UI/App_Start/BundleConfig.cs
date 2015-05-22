@@ -21,6 +21,10 @@ namespace CarsCompare.UI
 
             bundles.Add(new ScriptBundle("~/bundles/angular").Include(
                       "~/Scripts/Angular/angular.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/angular-ui").Include(
+                      "~/Scripts/Angular-UI/ui-bootstrap.js",
+                      "~/Scripts/Angular-UI/ui-bootstrap-tpls.js"));
             
             bundles.Add(new ScriptBundle("~/bundles/customScripts").IncludeDirectory(
                       "~/Scripts/CustomScripts/Modules", "*.js").IncludeDirectory(
