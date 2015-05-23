@@ -51,7 +51,7 @@ namespace CarsCompare.UI.Controllers
         //    var paramNameViewModels = await paramNameSearch.GetParamNames();
         //    var paramGroupViewModels = await paramGroupSearch.GetParamGroups();
 
-        //    var result = new HomeIndexViewModel
+        //    var result = new DataResultViewModel
         //    {
         //        Brands = brandViewModels,
         //        Models = modelViewModels,
@@ -69,13 +69,13 @@ namespace CarsCompare.UI.Controllers
         [BrowserActionFilter]
         public async Task<JsonResult> GetBrands()
         {
-            var brandSearch = new BrandSearch(_unitOfWork, _cache, _logWriter);           
+            var brandSearch = new BrandSearch(_unitOfWork, _cache, _logWriter);
 
-            var brandViewModels = await brandSearch.GetBrands();           
+            var brandViewModels = await brandSearch.GetBrands();
 
-            var result = new HomeIndexViewModel
+            var result = new DataResultViewModel
             {
-                Brands = brandViewModels                
+                Brands = brandViewModels
             };
 
             return Json(result, JsonRequestBehavior.AllowGet);
@@ -89,7 +89,7 @@ namespace CarsCompare.UI.Controllers
 
             var modelViewModels = await modelSearch.GetModelsByBrandId(brandId);
 
-            var result = new HomeIndexViewModel
+            var result = new DataResultViewModel
             {
                 Models = modelViewModels
             };
@@ -105,7 +105,7 @@ namespace CarsCompare.UI.Controllers
 
             var versionViewModels = await versionSearch.GetVersionsByModelId(modelId);
 
-            var result = new HomeIndexViewModel
+            var result = new DataResultViewModel
             {
                 Versions = versionViewModels
             };
@@ -121,9 +121,25 @@ namespace CarsCompare.UI.Controllers
 
             var modifyViewModels = await modifySearch.GetModifiesByModelIdAndVersionId(modelId, versionId);
 
-            var result = new HomeIndexViewModel
+            var result = new DataResultViewModel
             {
                 Modifies = modifyViewModels
+            };
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        [BrowserActionFilter]
+        public async Task<JsonResult> GetParamsByModifyId(int modifyId)
+        {
+            var paramSearch = new ParamSearch(_unitOfWork, _cache, _logWriter);
+
+            var paramViewModels = await paramSearch.GetParamsByModifyId(modifyId);
+
+            var result = new DataResultViewModel
+            {
+                Params = paramViewModels
             };
 
             return Json(result, JsonRequestBehavior.AllowGet);

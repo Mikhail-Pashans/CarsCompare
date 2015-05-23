@@ -29,7 +29,8 @@ namespace CarsCompare.UI
             bundles.Add(new ScriptBundle("~/bundles/customScripts").IncludeDirectory(
                       "~/Scripts/CustomScripts/Modules", "*.js").IncludeDirectory(
                       "~/Scripts/CustomScripts/Controllers", "*.js").IncludeDirectory(
-                      "~/Scripts/CustomScripts/Services", "*.js"));
+                      "~/Scripts/CustomScripts/Services", "*.js").IncludeDirectory(
+                      "~/Scripts/CustomScripts/Filters", "*.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/Css/bootstrap.css",

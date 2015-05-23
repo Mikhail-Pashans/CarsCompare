@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace CarsCompare.UI.ViewModels
 {
-    public class HomeIndexViewModel
+    public class DataResultViewModel
     {
         [JsonProperty("brands")]
         public IEnumerable<BrandViewModel> Brands { get; set; }

@@ -19,10 +19,10 @@ namespace CarsCompare.Domain.BusinessObjects
             return paramModels;
         }
 
-        public async Task<IEnumerable<ParamModel>> GetParamsByModifyIdAndParamNameId(int modifyId, int paramNameId)
+        public async Task<IEnumerable<ParamModel>> GetParamsByModifyId(int modifyId)
         {
-            var parameters = await UnitOfWork.ParamRepository.FindAsync(p => p.Modify.Id == modifyId && p.ParamName.Id == paramNameId);
-            var paramModels = parameters.Take(1000).Select(Map).ToList();
+            var parameters = await UnitOfWork.ParamRepository.FindAsync(p => p.Modify.Id == modifyId);
+            var paramModels = parameters.Select(Map).ToList();
 
             return paramModels;
         }

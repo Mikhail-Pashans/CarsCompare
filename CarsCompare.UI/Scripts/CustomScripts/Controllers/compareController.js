@@ -3,16 +3,15 @@
 carsCompareApp.controller('compareCtrl', function compareCtrl($scope, $modal, $log, dataService) {
     'use strict';
 
-    var conf = {
+    var config = {
         method: 'GET',
-        url: '/Home/GetBrands',
+        url: '',
+        params: {},
+        cache: true,
         timeout: 15000
     };
 
-    var promiseObj = dataService.getData(conf);
-    promiseObj.then(function (response) {
-        $scope.brands = response.brands;
-    });
+    $scope.cars = [];
 
     $scope.open = function () {
         var modalInstance = $modal.open({
@@ -20,17 +19,14 @@ carsCompareApp.controller('compareCtrl', function compareCtrl($scope, $modal, $l
             templateUrl: 'ClientTemplates/modalInstanceTemplate.html',
             controller: 'modalInstancesCtrl',
             resolve: {
-                conf: function () {
-                    return conf;
-                },
-                brands: function () {
-                    return $scope.brands;
+                config: function () {
+                    return config;
                 }
             }
         });
 
-        modalInstance.result.then(function (selectedModifyId) {
-            $scope.selectedModifyId = selectedModifyId;
+        modalInstance.result.then(function (result) {
+            $scope.selectedModifyId = result.modifyId;
         }, function () {
             $log.info('Modal dismissed at: ' + new Date());
         });

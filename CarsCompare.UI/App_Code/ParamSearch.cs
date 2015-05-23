@@ -39,5 +39,22 @@ namespace CarsCompare.UI
 
             return paramViewModels;
         }
+
+        public async Task<IEnumerable<ParamViewModel>> GetParamsByModifyId(int modifyId)
+        {
+            IQueryable<ParamModel> parameters = _cache.Get<IQueryable<ParamModel>>(string.Format("params-{0}", modifyId));
+
+            if (parameters == null)
+            {
+                var paramBo = new ParamBO(_unitOfWork);
+                var paramModels = await paramBo.GetParamsByModifyId(modifyId);
+                parameters = paramModels.AsQueryable();
+                _cache.Set(string.Format("params-{0}", modifyId), parameters, 10);
+            }
+
+            var paramViewModels = parameters.Select(ParamViewModel.Map);
+
+            return paramViewModels;
+        }
     }
 }
