@@ -6,7 +6,7 @@ carsCompareApp.filter('formatBigYear', function () {
             return 'наст. вр.';
         }
         else {
-            return text;
+            return year;
         }
     }
 })

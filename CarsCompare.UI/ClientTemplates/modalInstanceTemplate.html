@@ -4,25 +4,25 @@
     </div>
     <div class="modal-body" style="left: 25%;">
         <div class="row">
-            <select class="form-control selectpicker" data-width="100%" title="Выберите бренд..." name="brands" data-ng-model="selectedBrand" data-ng-options="brand.id as brand.name for brand in brands" data-ng-change="getModels()">
+            <select class="form-control selectpicker" data-width="100%" title="Выберите бренд..." name="brands" data-ng-model="selectedBrand" data-ng-options="brand.id as brand.name for brand in brands">
                 <option value="">Выберите бренд...</option>
             </select>
         </div>
         <br />
         <div class="row">
-            <select class="form-control selectpicker" data-width="100%" title="Выберите модель..." name="models" data-ng-model="selectedModel" data-ng-options="model.id as model.name for model in models" data-ng-disabled="isModelsDisabled()" data-ng-change="getVersions()">
+            <select class="form-control selectpicker" data-width="100%" title="Выберите модель..." name="models" data-ng-model="selectedModel" data-ng-options="model.id as model.name for model in models" data-ng-disabled="isModelsDisabled()">
                 <option value="">Выберите модель...</option>
             </select>
         </div>
         <br />
         <div class="row">
-            <select class="form-control selectpicker" data-width="100%" title="Выберите версию..." name="versions" data-ng-model="selectedVersion" data-ng-options="version.id as version.gen + ' ' + version.mod for version in versions" data-ng-disabled="isVersionsDisabled()" data-ng-change="getModifies()">
+            <select class="form-control selectpicker" data-width="100%" title="Выберите версию..." name="versions" data-ng-model="selectedVersion" data-ng-options="version.id as version.gen + ' ' + version.mod for version in versions" data-ng-disabled="isVersionsDisabled()">
                 <option value="">Выберите версию...</option>
             </select>
         </div>
         <br />
         <div class="row">
-            <select class="form-control selectpicker" data-width="100%" title="Выберите модификацию..." name="modifies" data-ng-model="selectedModify" data-ng-options="modify.id as modify.name + ' ' + modify.yearFrom | formatBigYear + ' &ndash; ' + modify.yearTo | formatBigYear for modify in modifies" data-ng-disabled="isModifiesDisabled()">
+            <select class="form-control selectpicker" data-width="100%" title="Выберите модификацию..." name="modifies" data-ng-model="selectedModify" data-ng-options="modify.id as modify.name + ' ' + ( modify.yearFrom | formatBigYear ) + ' &ndash; ' + ( modify.yearTo | formatBigYear ) for modify in modifies" data-ng-disabled="isModifiesDisabled()">
                 <option value="">Выберите модификацию...</option>
             </select>
         </div>
