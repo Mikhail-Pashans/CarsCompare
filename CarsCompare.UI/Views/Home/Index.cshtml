@@ -11,8 +11,12 @@
                 <button type="button" class="btn lg btn-primary" data-ng-click="open()">Выбрать автомобиль для сравнения</button>
             </div>
         </div>
-        <div class="row">
-            <h1>{{ selectedModifyId }}</h1>
+        <div class="row" data-ng-show="!!result">
+            <h1>{{ result.brand.name }}</h1>
+            <h1>{{ result.model.name }}</h1>
+            <h1>{{ result.version.name }}</h1>
+            <h1>{{ result.modify.name }}</h1>
+            <h1>{{ (result.modify.yearFrom | formatBigYear) + ' &ndash; ' + (result.modify.yearTo | formatBigYear) }}</h1>
         </div>
     </div>
 </div>
