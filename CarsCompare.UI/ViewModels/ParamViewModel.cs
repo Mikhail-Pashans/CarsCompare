@@ -25,7 +25,8 @@ namespace CarsCompare.UI.ViewModels
             return new ParamViewModel
             {
                 Id = model.Id,
-                Value = model.Value
+                Value = model.Value,
+                ParamName = ParamNameViewModel.Map(model.ParamName)
             };
         }
     }

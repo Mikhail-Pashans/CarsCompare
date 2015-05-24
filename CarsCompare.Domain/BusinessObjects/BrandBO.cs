@@ -14,12 +14,12 @@ namespace CarsCompare.Domain.BusinessObjects
         public async Task<IEnumerable<BrandModel>> GetBrands()
         {
             var brands = await UnitOfWork.BrandRepository.GetAllAsync();
-            var brandModels = brands.Select(Map).OrderBy(b => b.Name).ToList();
+            var brandModels = brands.ToList().Select(Map).OrderBy(b => b.Name);
 
             return brandModels;
         }
 
-        public BrandModel Map(Brand brand)
+        public static BrandModel Map(Brand brand)
         {
             if (brand == null)
                 return null;
@@ -27,7 +27,7 @@ namespace CarsCompare.Domain.BusinessObjects
             return new BrandModel
             {
                 Id = brand.Id,
-                Name = brand.Name                
+                Name = brand.Name
             };
         }
     }

@@ -1,4 +1,5 @@
-﻿using CarsCompare.Database;
+﻿using System;
+using CarsCompare.Database;
 using CarsCompare.Domain.BusinessObjects;
 using CarsCompare.Domain.Models;
 using CarsCompare.Logger;
@@ -29,10 +30,18 @@ namespace CarsCompare.UI
 
             if (brands == null)
             {
-                var brandBo = new BrandBO(_unitOfWork);
-                var brandModels = await brandBo.GetBrands();
-                brands = brandModels.AsQueryable();
-                _cache.Set("brands", brands, 10);
+                try
+                {
+                    var brandBo = new BrandBO(_unitOfWork);
+                    var brandModels = await brandBo.GetBrands();
+                    brands = brandModels.AsQueryable();
+                    _cache.Set("brands", brands, 15);
+                }
+                catch (Exception ex)
+                {
+                    _logWriter.WriteError(ex.InnerException != null ? ex.InnerException.Message : ex.Message);
+                    throw;
+                }
             }
 
             var brandViewModels = brands.Select(BrandViewModel.Map);

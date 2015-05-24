@@ -1,6 +1,7 @@
 ﻿using CarsCompare.Domain.Models;
 using Newtonsoft.Json;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace CarsCompare.UI.ViewModels
 {
@@ -23,7 +24,8 @@ namespace CarsCompare.UI.ViewModels
             return new ParamGroupViewModel
             {
                 Id = model.Id,
-                Name = model.Name
+                Name = model.Name,
+                ParamNames = model.ParamNames.Select(ParamNameViewModel.Map)
             };
         }
     }

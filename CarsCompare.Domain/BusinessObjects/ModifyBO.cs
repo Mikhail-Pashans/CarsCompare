@@ -14,7 +14,7 @@ namespace CarsCompare.Domain.BusinessObjects
         public async Task<IEnumerable<ModifyModel>> GetModifies()
         {
             var modifies = await UnitOfWork.ModifyRepository.GetAllAsync();
-            var modifyModels = modifies.Select(Map).ToList();
+            var modifyModels = modifies.ToList().Select(Map);
 
             return modifyModels;
         }
@@ -22,12 +22,12 @@ namespace CarsCompare.Domain.BusinessObjects
         public async Task<IEnumerable<ModifyModel>> GetModifiesByModelIdAndVersionId(int modelId, int versionId)
         {
             var modifies = await UnitOfWork.ModifyRepository.FindAsync(m => m.Model.Id == modelId && m.Version.Id == versionId);
-            var modifyModels = modifies.Select(Map).ToList();
+            var modifyModels = modifies.ToList().Select(Map);
 
             return modifyModels;
         }
 
-        public ModifyModel Map(Modify modify)
+        public static ModifyModel Map(Modify modify)
         {
             if (modify == null)
                 return null;

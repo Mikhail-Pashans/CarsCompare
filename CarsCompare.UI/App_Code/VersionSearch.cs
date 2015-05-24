@@ -4,6 +4,7 @@ using CarsCompare.Domain.Models;
 using CarsCompare.Logger;
 using CarsCompare.UI.Cache;
 using CarsCompare.UI.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -29,10 +30,18 @@ namespace CarsCompare.UI
 
             if (versions == null)
             {
-                var versionBo = new VersionBO(_unitOfWork);
-                var versionModels = await versionBo.GetVersions();
-                versions = versionModels.AsQueryable();
-                _cache.Set("versions", versions, 10);
+                try
+                {
+                    var versionBo = new VersionBO(_unitOfWork);
+                    var versionModels = await versionBo.GetVersions();
+                    versions = versionModels.AsQueryable();
+                    _cache.Set("versions", versions, 15);
+                }
+                catch (Exception ex)
+                {
+                    _logWriter.WriteError(ex.InnerException != null ? ex.InnerException.Message : ex.Message);
+                    throw;
+                }
             }
 
             var versionViewModels = versions.Select(VersionViewModel.Map);
@@ -46,10 +55,18 @@ namespace CarsCompare.UI
 
             if (versions == null)
             {
-                var versionBo = new VersionBO(_unitOfWork);
-                var versionModels = await versionBo.GetVersionsByModelId(modelId);
-                versions = versionModels.AsQueryable();
-                _cache.Set(string.Format("versions-{0}", modelId), versions, 10);
+                try
+                {
+                    var versionBo = new VersionBO(_unitOfWork);
+                    var versionModels = await versionBo.GetVersionsByModelId(modelId);
+                    versions = versionModels.AsQueryable();
+                    _cache.Set(string.Format("versions-{0}", modelId), versions, 15);
+                }
+                catch (Exception ex)
+                {
+                    _logWriter.WriteError(ex.InnerException != null ? ex.InnerException.Message : ex.Message);
+                    throw;
+                }
             }
 
             var versionViewModels = versions.Select(VersionViewModel.Map);

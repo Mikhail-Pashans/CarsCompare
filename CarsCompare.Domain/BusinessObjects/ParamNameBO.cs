@@ -14,7 +14,7 @@ namespace CarsCompare.Domain.BusinessObjects
         public async Task<IEnumerable<ParamNameModel>> GetParamNames()
         {
             var paramNames = await UnitOfWork.ParamNameRepository.GetAllAsync();
-            var paramNameModels = paramNames.Select(Map).ToList();
+            var paramNameModels = paramNames.ToList().Select(Map);
 
             return paramNameModels;
         }
@@ -22,12 +22,12 @@ namespace CarsCompare.Domain.BusinessObjects
         public async Task<IEnumerable<ParamNameModel>> GetParamNamesByParamGroupId(int paramGroupId)
         {
             var paramNames = await UnitOfWork.ParamNameRepository.FindAsync(pn => pn.ParamGroup.Id == paramGroupId);
-            var paramNameModels = paramNames.Select(Map).ToList();
+            var paramNameModels = paramNames.ToList().Select(Map);
 
             return paramNameModels;
         }
 
-        public ParamNameModel Map(ParamName paramName)
+        public static ParamNameModel Map(ParamName paramName)
         {
             if (paramName == null)
                 return null;

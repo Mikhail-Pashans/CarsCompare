@@ -4,6 +4,7 @@ using CarsCompare.Domain.Models;
 using CarsCompare.Logger;
 using CarsCompare.UI.Cache;
 using CarsCompare.UI.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -29,10 +30,18 @@ namespace CarsCompare.UI
 
             if (paramNames == null)
             {
-                var paramNameBo = new ParamNameBO(_unitOfWork);
-                var paramNameModels = await paramNameBo.GetParamNames();
-                paramNames = paramNameModels.AsQueryable();
-                _cache.Set("paramNames", paramNames, 10);
+                try
+                {
+                    var paramNameBo = new ParamNameBO(_unitOfWork);
+                    var paramNameModels = await paramNameBo.GetParamNames();
+                    paramNames = paramNameModels.AsQueryable();
+                    _cache.Set("paramNames", paramNames, 15);
+                }
+                catch (Exception ex)
+                {
+                    _logWriter.WriteError(ex.InnerException != null ? ex.InnerException.Message : ex.Message);
+                    throw;
+                }
             }
 
             var paramNameViewModels = paramNames.Select(ParamNameViewModel.Map);

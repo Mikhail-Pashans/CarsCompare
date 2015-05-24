@@ -14,7 +14,7 @@ namespace CarsCompare.Domain.BusinessObjects
         public async Task<IEnumerable<ModelModel>> GetModels()
         {
             var models = await UnitOfWork.ModelRepository.GetAllAsync();
-            var modelModels = models.Select(Map).ToList();
+            var modelModels = models.ToList().Select(Map);
 
             return modelModels;
         }
@@ -22,12 +22,12 @@ namespace CarsCompare.Domain.BusinessObjects
         public async Task<IEnumerable<ModelModel>> GetModelsByBrandId(int brandId)
         {
             var models = await UnitOfWork.ModelRepository.FindAsync(m => m.Brand.Id == brandId);
-            var modelModels = models.Select(Map).ToList();
+            var modelModels = models.ToList().Select(Map);
 
             return modelModels;
         }
 
-        public ModelModel Map(Model model)
+        public static ModelModel Map(Model model)
         {
             if (model == null)
                 return null;

@@ -14,12 +14,21 @@ namespace CarsCompare.Domain.BusinessObjects
         public async Task<IEnumerable<ParamGroupModel>> GetParamGroups()
         {
             var paramGroups = await UnitOfWork.ParamGroupRepository.GetAllAsync();
-            var paramGroupModels = paramGroups.Select(Map).ToList();
+            var paramGroupModels = paramGroups.ToList().Select(Map);
 
             return paramGroupModels;
         }
 
-        public ParamGroupModel Map(ParamGroup paramGroup)
+        public async Task<IEnumerable<ParamGroupModel>> GetParamGroupsWithParamNames()
+        {
+            var paramGroups = await UnitOfWork.ParamGroupRepository.FindAsync(pg => true, new[] { "ParamNames" });
+
+            var paramGroupModels = paramGroups.ToList().Select(Map);
+
+            return paramGroupModels;
+        }
+
+        public static ParamGroupModel Map(ParamGroup paramGroup)
         {
             if (paramGroup == null)
                 return null;
@@ -27,7 +36,8 @@ namespace CarsCompare.Domain.BusinessObjects
             return new ParamGroupModel
             {
                 Id = paramGroup.Id,
-                Name = paramGroup.Name
+                Name = paramGroup.Name,
+                ParamNames = paramGroup.ParamNames.Select(ParamNameBO.Map)
             };
         }
     }

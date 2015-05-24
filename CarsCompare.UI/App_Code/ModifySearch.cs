@@ -4,6 +4,7 @@ using CarsCompare.Domain.Models;
 using CarsCompare.Logger;
 using CarsCompare.UI.Cache;
 using CarsCompare.UI.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -29,10 +30,18 @@ namespace CarsCompare.UI
 
             if (modifies == null)
             {
-                var modifyBo = new ModifyBO(_unitOfWork);
-                var modelModels = await modifyBo.GetModifies();
-                modifies = modelModels.AsQueryable();
-                _cache.Set("modifies", modifies, 10);
+                try
+                {
+                    var modifyBo = new ModifyBO(_unitOfWork);
+                    var modelModels = await modifyBo.GetModifies();
+                    modifies = modelModels.AsQueryable();
+                    _cache.Set("modifies", modifies, 15);
+                }
+                catch (Exception ex)
+                {
+                    _logWriter.WriteError(ex.InnerException != null ? ex.InnerException.Message : ex.Message);
+                    throw;
+                }
             }
 
             var modifyViewModels = modifies.Select(ModifyViewModel.Map);
@@ -46,10 +55,18 @@ namespace CarsCompare.UI
 
             if (modifies == null)
             {
-                var modifyBo = new ModifyBO(_unitOfWork);
-                var modelModels = await modifyBo.GetModifiesByModelIdAndVersionId(modelId, versionId);
-                modifies = modelModels.AsQueryable();
-                _cache.Set(string.Format("modifies-{0}-{1}", modelId, versionId), modifies, 10);
+                try
+                {
+                    var modifyBo = new ModifyBO(_unitOfWork);
+                    var modelModels = await modifyBo.GetModifiesByModelIdAndVersionId(modelId, versionId);
+                    modifies = modelModels.AsQueryable();
+                    _cache.Set(string.Format("modifies-{0}-{1}", modelId, versionId), modifies, 15);
+                }
+                catch (Exception ex)
+                {
+                    _logWriter.WriteError(ex.InnerException != null ? ex.InnerException.Message : ex.Message);
+                    throw;
+                }
             }
 
             var modifyViewModels = modifies.Select(ModifyViewModel.Map);

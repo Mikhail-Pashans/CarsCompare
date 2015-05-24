@@ -4,6 +4,7 @@ using CarsCompare.Domain.Models;
 using CarsCompare.Logger;
 using CarsCompare.UI.Cache;
 using CarsCompare.UI.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -29,10 +30,18 @@ namespace CarsCompare.UI
 
             if (models == null)
             {
-                var modelBo = new ModelBO(_unitOfWork);
-                var modelModels = await modelBo.GetModels();
-                models = modelModels.AsQueryable();
-                _cache.Set("models", models, 10);
+                try
+                {
+                    var modelBo = new ModelBO(_unitOfWork);
+                    var modelModels = await modelBo.GetModels();
+                    models = modelModels.AsQueryable();
+                    _cache.Set("models", models, 15);
+                }
+                catch (Exception ex)
+                {
+                    _logWriter.WriteError(ex.InnerException != null ? ex.InnerException.Message : ex.Message);
+                    throw;
+                }
             }
 
             var modelViewModels = models.Select(ModelViewModel.Map);
@@ -46,10 +55,18 @@ namespace CarsCompare.UI
 
             if (models == null)
             {
-                var modelBo = new ModelBO(_unitOfWork);
-                var modelModels = await modelBo.GetModelsByBrandId(brandId);
-                models = modelModels.AsQueryable();
-                _cache.Set(string.Format("models-{0}", brandId), models, 10);
+                try
+                {
+                    var modelBo = new ModelBO(_unitOfWork);
+                    var modelModels = await modelBo.GetModelsByBrandId(brandId);
+                    models = modelModels.AsQueryable();
+                    _cache.Set(string.Format("models-{0}", brandId), models, 15);
+                }
+                catch (Exception ex)
+                {
+                    _logWriter.WriteError(ex.InnerException != null ? ex.InnerException.Message : ex.Message);
+                    throw;
+                }
             }
 
             var modelViewModels = models.Select(ModelViewModel.Map);

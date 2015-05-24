@@ -1,6 +1,8 @@
 ﻿var carsCompareApp = angular.module('carsCompareApp');
 
-carsCompareApp.filter('formatBigYear', function formatBigYear() {
+carsCompareApp.filter('formatBigYear', ['$filter', function formatBigYear($filter) {
+    'use strict';
+
     return function (year) {
         if (year === 9999) {
             return 'наст. вр.';
@@ -9,4 +11,4 @@ carsCompareApp.filter('formatBigYear', function formatBigYear() {
             return year;
         }
     }
-})
+}])

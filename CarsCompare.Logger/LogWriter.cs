@@ -14,7 +14,7 @@ namespace CarsCompare.Logger
             log4net.Config.XmlConfigurator.Configure();
             log4net.LogicalThreadContext.Properties["ipaddress"] = GetIPAddress();
             _writer = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-            
+
             // Uncomment this if you are having config problems
             //            if (!log4net.LogManager.GetRepository().Configured)
             //            {
@@ -45,14 +45,14 @@ namespace CarsCompare.Logger
             return Task.Run(() => _writer.Warn(message, exception));
         }
 
-        public Task WriteErrorAsync(string message, Exception exception = null)
+        public void WriteError(string message, Exception exception = null)
         {
-            return Task.Run(() => _writer.Error(message, exception));
+            _writer.Error(message, exception);
         }
 
-        public Task WriteFatalAsync(string message, Exception exception = null)
+        public void WriteFatal(string message, Exception exception = null)
         {
-            return Task.Run(() => _writer.Fatal(message, exception));
+            _writer.Fatal(message, exception);
         }
 
         private string GetIPAddress()

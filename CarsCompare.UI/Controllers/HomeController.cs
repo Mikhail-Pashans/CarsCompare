@@ -147,6 +147,22 @@ namespace CarsCompare.UI.Controllers
 
         [HttpGet]
         [BrowserActionFilter]
+        public async Task<JsonResult> GetParamGroupsWithParamNames()
+        {
+            var paramGroupSearch = new ParamGroupSearch(_unitOfWork, _cache, _logWriter);
+
+            var paramGroupsViewModels = await paramGroupSearch.GetParamGroupsWithParamNames();
+
+            var result = new DataResultViewModel
+            {
+                ParamGroups = paramGroupsViewModels
+            };
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        [BrowserActionFilter]
         public ActionResult About()
         {
             ViewBag.Message = "CarsCompare description page.";
@@ -161,6 +177,14 @@ namespace CarsCompare.UI.Controllers
             ViewBag.Message = "Your contact page.";
 
             return View();
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+                _unitOfWork.Dispose();
+
+            base.Dispose(disposing);
         }
     }
 }

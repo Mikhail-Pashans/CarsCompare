@@ -11,83 +11,33 @@
                 <button type="button" class="btn lg btn-primary" data-ng-click="open()">Выбрать автомобиль для сравнения</button>
             </div>
         </div>
-        <div class="row" data-ng-show="!!result">
-            <h1>{{ result.brand.name }}</h1>
-            <h1>{{ result.model.name }}</h1>
-            <h1>{{ result.version.name }}</h1>
-            <h1>{{ result.modify.name }}</h1>
-            <h1>{{ (result.modify.yearFrom | formatBigYear) + ' &ndash; ' + (result.modify.yearTo | formatBigYear) }}</h1>
+        <div class="row" data-ng-show="!!cars.length">
+            <ul>
+                <li data-ng-repeat="car in cars">
+                    <h2>{{ car.brand.name }}</h2>
+                    <h2>{{ car.model.name }}</h2>
+                    <h2>{{ car.version.name }}</h2>
+                    <h2>{{ (car.modify.yearFrom | formatBigYear) + ' &mdash; ' + (car.modify.yearTo | formatBigYear) }}</h2>
+                    <ul>
+                        <li data-ng-repeat="paramGroup in paramGroups">
+                            <h3>{{ paramGroup.name }}</h3>
+                            <ul>
+                                <li data-ng-repeat="paramName in paramGroup.paramNames">
+                                    <span>{{ paramName.name }}</span>
+                                    &emsp;
+                                    <span data-ng-repeat="param in car.params | objectsArrayFirst : paramName">
+                                        {{ param.value | paramBlankValue }}
+                                    </span>
+                                    &emsp;
+                                    <span>{{ paramName.units }}</span>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
         </div>
     </div>
 </div>
-
-@*<div class="row">
-        <div class="col-md-4">
-            <select class="form-control selectpicker" data-width="100%" title="Выберите бренд..." name="brands[]">
-                <option value="title">Выберите бренд...</option>
-                <option data-ng-repeat="brand in response.brands" value="{{ brand.id }}">
-                    {{ brand.name }}
-                </option>
-            </select>
-        </div>
-
-        <div class="col-md-4">
-            <select class="form-control selectpicker" data-width="100%" title="Выберите модель..." name="models[]">
-                <option value="title">Выберите модель...</option>
-                <option data-ng-repeat="model in response.models" value="{{ model.id }}">
-                    {{ model.name }}
-                </option>
-            </select>
-        </div>
-
-        <div class="col-md-4">
-            <select class="form-control selectpicker" data-width="100%" title="Выберите версию..." name="versions[]">
-                <option value="title">Выберите версию...</option>
-                <option data-ng-repeat="version in response.versions" value="{{ version.id }}">
-                    {{ version.name + '(' + version.gen + ' + ' + version.mod + ')' }}
-                </option>
-            </select>
-        </div>
-    </div>
-    <br />
-    <div class="row">
-        <div class="col-md-4">
-            <select class="form-control selectpicker" data-width="100%" title="Выберите модификацию..." name="modifies[]">
-                <option value="title">Выберите модификацию...</option>
-                <option data-ng-repeat="modify in response.modifies" value="{{ modify.id }}">
-                    {{ modify.name + '(' + modify.yearFrom + ' - ' + modify.yearTo + ')' }}
-                </option>
-            </select>
-        </div>
-
-        <div class="col-md-4">
-            <select class="form-control selectpicker" data-width="100%" title="Выберите группу параметров..." name="paramGroups[]">
-                <option value="title">Выберите группу параметров...</option>
-                <option data-ng-repeat="paramGroup in response.paramGroups" value="{{ paramGroup.id }}">
-                    {{ paramGroup.name }}
-                </option>
-            </select>
-        </div>
-
-        <div class="col-md-4">
-            <select class="form-control selectpicker" data-width="100%" title="Выберите название параметра..." name="paramNames[]">
-                <option value="title">Выберите название параметра...</option>
-                <option data-ng-repeat="paramName in response.paramNames" value="{{ paramName.id }}">
-                    {{ paramName.name + '(' + paramName.units + ')' }}
-                </option>
-            </select>
-        </div>
-    </div>
-    <br />
-    <div class="row">
-        <div class="col-md-4">
-            <select class="form-control selectpicker" data-width="100%" title="Выберите параметр..." name="params[]">
-                <option value="title">Выберите параметр...</option>
-                <option data-ng-repeat="param in response.params" value="{{ param.id }}">
-                    {{ param.value }}
-                </option>
-            </select>
-        </div>
-    </div>*@
 
 @Scripts.Render("~/bundles/customScripts")

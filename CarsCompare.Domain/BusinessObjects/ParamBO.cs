@@ -14,20 +14,20 @@ namespace CarsCompare.Domain.BusinessObjects
         public async Task<IEnumerable<ParamModel>> GetParams()
         {
             var parameters = await UnitOfWork.ParamRepository.GetAllAsync();
-            var paramModels = parameters.Take(50000).Select(Map).ToList();
+            var paramModels = parameters.ToList().Take(50000).Select(Map);
 
             return paramModels;
         }
 
         public async Task<IEnumerable<ParamModel>> GetParamsByModifyId(int modifyId)
         {
-            var parameters = await UnitOfWork.ParamRepository.FindAsync(p => p.Modify.Id == modifyId);
-            var paramModels = parameters.Select(Map).ToList();
+            var parameters = await UnitOfWork.ParamRepository.FindAsync(p => p.Modify.Id == modifyId, new[] { "ParamName" });
+            var paramModels = parameters.ToList().Select(Map);
 
             return paramModels;
         }
 
-        public ParamModel Map(Param param)
+        public static ParamModel Map(Param param)
         {
             if (param == null)
                 return null;
@@ -35,7 +35,8 @@ namespace CarsCompare.Domain.BusinessObjects
             return new ParamModel
             {
                 Id = param.Id,
-                Value = param.Value
+                Value = param.Value,
+                ParamName = ParamNameBO.Map(param.ParamName)
             };
         }
     }
