@@ -7,6 +7,7 @@ carsCompareApp.filter('objectsArrayFirst', [function objectsArrayFirst() {
         if (!angular.isDefined(searchCriteria) || !angular.isObject(searchCriteria)) {
             return inputArray;
         }
+
         var resultArray = [];
         var keepGoing = true;
         angular.forEach(inputArray, function (item) {
@@ -15,7 +16,7 @@ carsCompareApp.filter('objectsArrayFirst', [function objectsArrayFirst() {
                     resultArray.push(item);
                     keepGoing = false;
                 }
-            }            
+            }
         });
 
         return resultArray;
