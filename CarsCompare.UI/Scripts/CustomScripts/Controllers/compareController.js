@@ -35,8 +35,8 @@ carsCompareApp.controller('compareCtrl',
                         config: function () {
                             return config;
                         },
-                        car: function () {
-                            return new Car();
+                        car: function() {
+                            return null;
                         }
                     }
                 });

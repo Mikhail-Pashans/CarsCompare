@@ -249,6 +249,7 @@
     <Content Include="Content\Images\browser-opera.png" />
     <Content Include="Content\Images\browser-safari.png" />
     <Content Include="Content\CSS\Bootstrap\ui-bootstrap-csp.css" />
+    <Content Include="Content\Images\compare-header-icon.png" />
     <Content Include="Content\Images\select2-spinner.gif" />
     <Content Include="Content\Images\select2.png" />
     <Content Include="Content\Images\select2x2.png" />

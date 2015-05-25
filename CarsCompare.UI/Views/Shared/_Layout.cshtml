@@ -16,10 +16,11 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("CarsCompare", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                <span class="icon"></span>
+                @Html.ActionLink("CarsCompare", "Index", "Home", new { area = "" }, new { @class = "navbar-brand custom-nav-text" })
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
+                <ul class="nav navbar-nav custom-nav-text">
                     <li>@Html.ActionLink("Главная", "Index", "Home")</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
@@ -30,7 +31,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy;&nbsp;@DateTime.Now.Year&ndash;CarsCompare</p>
+            <p>&copy;&nbsp;@DateTime.Now.Year&nbsp;&ndash;&nbsp;CarsCompare</p>
         </footer>
     </div>    
     @RenderSection("scripts", required: false)

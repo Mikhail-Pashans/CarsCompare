@@ -3,9 +3,9 @@
 
     var self = this;
 
-    self.brand = !!car ? car.brand : null;
-    self.model = !!car ? car.model : null;
-    self.version = !!car ? car.version : null;
-    self.modify = !!car ? car.modify : null;
-    self.params = !!car ? car.params : [];
+    self.brand = car.brand;
+    self.model = car.model;
+    self.version = car.version;
+    self.modify = car.modify;
+    self.params = car.params;
 };

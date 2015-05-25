@@ -11,18 +11,18 @@ carsCompareApp.controller('modalInstancesCtrl',
             $scope.versions = [];
             $scope.modifies = [];
 
-            $scope.params = car.params;
+            $scope.params = !!car ? car.params : [];
             $scope.brand = {
-                selected: car.brand
+                selected: !!car ? car.brand : null
             };
             $scope.model = {
-                selected: car.model
+                selected: !!car ? car.model : null
             };
             $scope.version = {
-                selected: car.version
+                selected: !!car ? car.version : null
             };
             $scope.modify = {
-                selected: car.modify
+                selected: !!car ? car.modify : null
             };
 
             $scope.isModelsDisabled = function () {
@@ -38,6 +38,8 @@ carsCompareApp.controller('modalInstancesCtrl',
                 return !$scope.brand.selected || !$scope.model.selected || !$scope.version.selected || !$scope.modify.selected || !$scope.params.length;
             };
 
+            var firstUpload = true;
+
             angular.extend(config, {
                 url: '/Home/GetBrands'
             });
@@ -49,6 +51,9 @@ carsCompareApp.controller('modalInstancesCtrl',
             });
 
             $scope.$watch('brand.selected', function (newValue) {
+                if (!!car && firstUpload) {
+                    return;
+                }
                 if (!!newValue) {
                     angular.extend(config, {
                         url: '/Home/GetModelsByBrandId',
@@ -73,6 +78,9 @@ carsCompareApp.controller('modalInstancesCtrl',
             });
 
             $scope.$watch('model.selected', function (newValue) {
+                if (!!car && firstUpload) {
+                    return;
+                }
                 if (!!newValue) {
                     angular.extend(config, {
                         url: '/Home/GetVersionsByModelId',
@@ -95,6 +103,9 @@ carsCompareApp.controller('modalInstancesCtrl',
             });
 
             $scope.$watch('version.selected', function (newValue) {
+                if (!!car && firstUpload) {
+                    return;
+                }
                 if (!!newValue) {
                     angular.extend(config, {
                         url: '/Home/GetModifiesByModelIdAndVersionId',
@@ -116,6 +127,10 @@ carsCompareApp.controller('modalInstancesCtrl',
             });
 
             $scope.$watch('modify.selected', function (newValue) {
+                if (!!car && firstUpload) {
+                    firstUpload = false;
+                    return;
+                }
                 if (!!newValue) {
                     angular.extend(config, {
                         url: '/Home/GetParamsByModifyId',
