@@ -1,4 +1,4 @@
-﻿var carsCompareApp = angular.module('carsCompareApp');
+﻿var carsCompareApp = angular.module('carsCompareServices');
 
 carsCompareApp.factory('dataService',
     [

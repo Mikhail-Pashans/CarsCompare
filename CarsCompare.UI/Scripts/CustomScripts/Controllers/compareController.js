@@ -1,4 +1,4 @@
-﻿var carsCompareApp = angular.module('carsCompareApp');
+﻿var carsCompareApp = angular.module('carsCompareControllers');
 
 carsCompareApp.controller('compareCtrl',
     [
@@ -34,6 +34,9 @@ carsCompareApp.controller('compareCtrl',
                     resolve: {
                         config: function () {
                             return config;
+                        },
+                        car: function () {
+                            return new Car();
                         }
                     }
                 });
@@ -43,6 +46,36 @@ carsCompareApp.controller('compareCtrl',
                 }, function () {
                     $log.info('Modal dismissed at: ' + new Date());
                 });
-            }
+            };
+
+            $scope.clearCars = function () {
+                $scope.cars = [];
+            };
+
+            $scope.changeCar = function (index) {
+                var modalInstance = $modal.open({
+                    animation: true,
+                    templateUrl: 'ClientTemplates/modalInstanceTemplate.html',
+                    controller: 'modalInstancesCtrl',
+                    resolve: {
+                        config: function () {
+                            return config;
+                        },
+                        car: function () {
+                            return $scope.cars[index];
+                        }
+                    }
+                });
+
+                modalInstance.result.then(function (car) {
+                    $scope.cars.splice(index, 1, car);
+                }, function () {
+                    $log.info('Modal dismissed at: ' + new Date());
+                });
+            };
+
+            $scope.removeCar = function (index) {
+                $scope.cars.splice(index, 1);
+            };
         }
     ]);

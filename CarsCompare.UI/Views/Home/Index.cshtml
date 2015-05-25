@@ -5,39 +5,53 @@
 @Styles.Render("~/Content/ui-bootstrap", "~/Content/select")
 @Scripts.Render("~/bundles/angular", "~/bundles/ui-bootstrap", "~/bundles/select")
 
-<div class="jumbotron" data-ng-app="carsCompareApp">
+<div class="jumbotron" data-ng-app="carsCompareApplication">
     <div data-ng-controller="compareCtrl">
         <table class="table table-striped">
             <thead class="text-center">
                 <tr>
-                    <th>
-                        <button type="button" class="btn lg btn-success" data-ng-click="addCar()">Выбрать автомобиль для сравнения</button>
+                    <th style="width: 20% !important;height: 250px !important; vertical-align: middle !important;" class="text-center">
+                        <div data-ng-click="addCar()" style="cursor: pointer;">
+                            <h3>Выбрать автомобиль для сравнения</h3>
+                            <img src="@Url.Content("~/Content/Images/add.png")"/>
+                        </div>
+                        <div class="full-width text-center" style="display: block;">
+                            <a href="javascript:void(0)" data-ng-click="clearCars()">Очистить сравнение</a>                            
+                        </div>
                     </th>
-                    <th class="bg-info" data-ng-repeat="car in cars" data-ng-show="!!cars.length">
-                        <span>{{ car.brand.name }}</span>
-                        <span>{{ car.model.name }}</span>
-                        <br />
-                        <span>{{ car.version.name }}</span>
-                        <br />
-                        <span>{{ (car.modify.yearFrom | formatBigYear) + ' &ndash; ' + (car.modify.yearTo | formatBigYear) }}</span>
+                    <th class="bg-info" data-ng-repeat="car in cars" data-ng-show="!!cars.length" style="width: 20% !important;">
+                        <div class="full-width" style="display: block;">
+                            <span>{{ car.brand.name }}</span>
+                            <span>{{ car.model.name }}</span>
+                            <br />
+                            <span>{{ car.version.name }}</span>
+                            <br />
+                            <span>{{ (car.modify.yearFrom | formatBigYear) + ' &ndash; ' + (car.modify.yearTo | formatBigYear) }}</span>
+                        </div>                                                
+                        <div class="full-width" style="display: block;">
+                            <a class="pull-left" href="javascript:void(0)" data-ng-click="changeCar($index)">Изменить</a>
+                            &emsp;
+                            <a class="pull-right" href="javascript:void(0)" data-ng-click="removeCar($index)">Удалить</a>
+                        </div>
                     </th>
                 </tr>
             </thead>
             <tbody class="text-left" data-ng-repeat="paramGroup in paramGroups" data-ng-show="!!cars.length">
                 <tr class="warning">
-                    <td colspan="{{ cars.length + 1 }}">
+                    <td style ="width: 20% !important;">
                         <strong>{{ paramGroup.name }}</strong>
                     </td>
+                    <td colspan="{{ cars.length }}"></td>
                 </tr>
                 <tr data-ng-repeat="paramName in paramGroup.paramNames">
-                    <td>
+                    <td style="width: 20% !important;">
                         <ul>
                             <li>
                                 <em>{{ paramName.name }}</em>
                             </li>
                         </ul>
                     </td>
-                    <td data-ng-repeat="car in cars">
+                    <td data-ng-repeat="car in cars" style="width: 20% !important;">
                         <span data-ng-repeat="param in car.params | objectsArrayFirst : paramName">
                             {{ param.value | paramBlankValue }}
                             &nbsp;

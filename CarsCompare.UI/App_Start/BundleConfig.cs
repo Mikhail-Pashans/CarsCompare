@@ -39,17 +39,17 @@ namespace CarsCompare.UI
                       "~/Scripts/CustomScripts/Models", "*.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/Css/site.css"));
+                      "~/Content/CSS/site.css"));
 
             bundles.Add(new StyleBundle("~/Content/bootstrap").Include(
-                      "~/Content/Css/Bootstrap/bootstrap.css"));
+                      "~/Content/CSS/Bootstrap/bootstrap.css"));
 
             bundles.Add(new StyleBundle("~/Content/ui-bootstrap").Include(
-                      "~/Content/Css/Bootstrap/ui-bootstrap-csp.css"));
+                      "~/Content/CSS/Bootstrap/ui-bootstrap-csp.css"));
 
             bundles.Add(new StyleBundle("~/Content/select").Include(
-                      "~/Content/Css/Select/select.css",
-                      "~/Content/Css/Select/select2.css"));
+                      "~/Content/CSS/Select/select.css",
+                      "~/Content/CSS/Select/select2.css"));
         }
     }
 }

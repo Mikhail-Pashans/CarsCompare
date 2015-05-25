@@ -1,4 +1,4 @@
-﻿var carsCompareApp = angular.module('carsCompareApp');
+﻿var carsCompareApp = angular.module('carsCompareFilters');
 
 carsCompareApp.filter('paramBlankValue',
     [

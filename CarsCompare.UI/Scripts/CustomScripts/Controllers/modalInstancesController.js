@@ -1,21 +1,29 @@
-﻿var carsCompareApp = angular.module('carsCompareApp');
+﻿var carsCompareApp = angular.module('carsCompareControllers');
 
 carsCompareApp.controller('modalInstancesCtrl',
     [
-        '$scope', '$modalInstance', 'dataService', 'config',
-        function modalInstancesCtrl($scope, $modalInstance, dataService, config) {
+        '$scope', '$modalInstance', 'dataService', 'config', 'car',
+        function modalInstancesCtrl($scope, $modalInstance, dataService, config, car) {
             'use strict';
 
             $scope.brands = [];
             $scope.models = [];
             $scope.versions = [];
             $scope.modifies = [];
-            $scope.params = [];
 
-            $scope.brand = {};
-            $scope.model = {};
-            $scope.version = {};
-            $scope.modify = {};
+            $scope.params = car.params;
+            $scope.brand = {
+                selected: car.brand
+            };
+            $scope.model = {
+                selected: car.model
+            };
+            $scope.version = {
+                selected: car.version
+            };
+            $scope.modify = {
+                selected: car.modify
+            };
 
             $scope.isModelsDisabled = function () {
                 return !$scope.brand.selected || !$scope.brands.length;
