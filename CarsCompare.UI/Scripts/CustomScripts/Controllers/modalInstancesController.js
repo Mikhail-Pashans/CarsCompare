@@ -1,136 +1,157 @@
 ﻿var carsCompareApp = angular.module('carsCompareApp');
 
-carsCompareApp.controller('modalInstancesCtrl', ['$scope', '$modalInstance', 'dataService', 'config',
-    function modalInstancesCtrl($scope, $modalInstance, dataService, config) {
-        'use strict';
+carsCompareApp.controller('modalInstancesCtrl',
+    [
+        '$scope', '$modalInstance', 'dataService', 'config',
+        function modalInstancesCtrl($scope, $modalInstance, dataService, config) {
+            'use strict';
 
-        $scope.brands = null;
-        $scope.models = null;
-        $scope.versions = null;
-        $scope.modifies = null;
-        $scope.params = null;
+            $scope.brands = [];
+            $scope.models = [];
+            $scope.versions = [];
+            $scope.modifies = [];
+            $scope.params = [];
 
-        $scope.selectedBrand = null;
-        $scope.selectedModel = null;
-        $scope.selectedVersion = null;
-        $scope.selectedModify = null;
+            $scope.brand = {};
+            $scope.model = {};
+            $scope.version = {};
+            $scope.modify = {};
 
-        $scope.isModelsDisabled = function () {
-            return $scope.selectedBrand === null || $scope.brands === null;
-        };
-        $scope.isVersionsDisabled = function () {
-            return $scope.selectedBrand === null || $scope.selectedModel === null || $scope.versions === null;
-        };
-        $scope.isModifiesDisabled = function () {
-            return $scope.selectedBrand === null || $scope.selectedModel === null || $scope.selectedVersion === null || $scope.modifies === null;
-        };
-        $scope.isOKButtonDisabled = function () {
-            return $scope.selectedBrand === null || $scope.selectedModel === null || $scope.selectedVersion === null || $scope.params === null;
-        };
+            $scope.isModelsDisabled = function () {
+                return !$scope.brand.selected || !$scope.brands.length;
+            };
+            $scope.isVersionsDisabled = function () {
+                return !$scope.brand.selected || !$scope.model.selected || !$scope.versions.length;
+            };
+            $scope.isModifiesDisabled = function () {
+                return !$scope.brand.selected || !$scope.model.selected || !$scope.version.selected || !$scope.modifies.length;
+            };
+            $scope.isOKButtonDisabled = function () {
+                return !$scope.brand.selected || !$scope.model.selected || !$scope.version.selected || !$scope.modify.selected || !$scope.params.length;
+            };
 
-        angular.extend(config, {
-            url: '/Home/GetBrands'
-        });
-        var brandsPromise = dataService.getData(config);
-        brandsPromise.then(function (response) {
-            $scope.brands = response.brands.map(function (item) {
-                return new Brand(item);
+            angular.extend(config, {
+                url: '/Home/GetBrands'
             });
-        });
-
-        $scope.$watch('selectedBrand', function (newValue) {
-            if (newValue !== null) {
-                angular.extend(config, {
-                    url: '/Home/GetModelsByBrandId',
-                    params: {
-                        brandId: $scope.selectedBrand.id
-                    }
+            var brandsPromise = dataService.getData(config);
+            brandsPromise.then(function (response) {
+                $scope.brands = response.brands.map(function (item) {
+                    return new Brand(item);
                 });
-                var modelsPromise = dataService.getData(config);
-                modelsPromise.then(function (response) {
-                    $scope.models = response.models.map(function (item) {
-                        return new Model(item);
+            });
+
+            $scope.$watch('brand.selected', function (newValue) {
+                if (!!newValue) {
+                    angular.extend(config, {
+                        url: '/Home/GetModelsByBrandId',
+                        params: {
+                            brandId: !!$scope.brand.selected ? $scope.brand.selected.id : 0
+                        }
                     });
-                });
-            }
-            $scope.selectedModel = null;
-            $scope.selectedVersion = null;
-            $scope.selectedModify = null;
-            $scope.models = null;
-            $scope.versions = null;
-            $scope.modifies = null;
-            $scope.params = null;
-        });
-
-        $scope.$watch('selectedModel', function (newValue) {
-            if (newValue !== null) {
-                angular.extend(config, {
-                    url: '/Home/GetVersionsByModelId',
-                    params: {
-                        modelId: $scope.selectedModel.id
-                    }
-                });
-                var vearsionsPromise = dataService.getData(config);
-                vearsionsPromise.then(function (response) {
-                    $scope.versions = response.versions.map(function (item) {
-                        return new Version(item);
+                    var modelsPromise = dataService.getData(config);
+                    modelsPromise.then(function (response) {
+                        $scope.models = response.models.map(function (item) {
+                            return new Model(item);
+                        });
                     });
-                });
-            }
-            $scope.selectedVersion = null;
-            $scope.selectedModify = null;
-            $scope.versions = null;
-            $scope.modifies = null;
-            $scope.params = null;
-        });
+                }
+                $scope.model = {};
+                $scope.version = {};
+                $scope.modify = {};
+                $scope.models = [];
+                $scope.versions = [];
+                $scope.modifies = [];
+                $scope.params = [];
+            });
 
-        $scope.$watch('selectedVersion', function (newValue) {
-            if (newValue !== null) {
-                angular.extend(config, {
-                    url: '/Home/GetModifiesByModelIdAndVersionId',
-                    params: {
-                        modelId: $scope.selectedModel.id,
-                        versionId: $scope.selectedVersion.id
-                    }
-                });
-                var modifiesPromise = dataService.getData(config);
-                modifiesPromise.then(function (response) {
-                    $scope.modifies = response.modifies.map(function (item) {
-                        return new Modify(item);
+            $scope.$watch('model.selected', function (newValue) {
+                if (!!newValue) {
+                    angular.extend(config, {
+                        url: '/Home/GetVersionsByModelId',
+                        params: {
+                            modelId: !!$scope.model.selected ? $scope.model.selected.id : 0
+                        }
                     });
-                });
-            }
-            $scope.selectedModify = null;
-            $scope.modifies = null;
-            $scope.params = null;
-        });
-
-        $scope.$watch('selectedModify', function (newValue) {
-            if (newValue !== null) {
-                angular.extend(config, {
-                    url: '/Home/GetParamsByModifyId',
-                    params: {
-                        modifyId: $scope.selectedModify.id
-                    }
-                });
-                var paramsPromise = dataService.getData(config);
-                paramsPromise.then(function (response) {
-                    $scope.params = response.params.map(function (item) {
-                        return new Param(item);
+                    var vearsionsPromise = dataService.getData(config);
+                    vearsionsPromise.then(function (response) {
+                        $scope.versions = response.versions.map(function (item) {
+                            return new Version(item);
+                        });
                     });
+                }
+                $scope.version = {};
+                $scope.modify = {};
+                $scope.versions = [];
+                $scope.modifies = [];
+                $scope.params = [];
+            });
+
+            $scope.$watch('version.selected', function (newValue) {
+                if (!!newValue) {
+                    angular.extend(config, {
+                        url: '/Home/GetModifiesByModelIdAndVersionId',
+                        params: {
+                            modelId: !!$scope.model.selected ? $scope.model.selected.id : 0,
+                            versionId: !!$scope.version.selected ? $scope.version.selected.id : 0
+                        }
+                    });
+                    var modifiesPromise = dataService.getData(config);
+                    modifiesPromise.then(function (response) {
+                        $scope.modifies = response.modifies.map(function (item) {
+                            return new Modify(item);
+                        });
+                    });
+                }
+                $scope.modify = {};
+                $scope.modifies = [];
+                $scope.params = [];
+            });
+
+            $scope.$watch('modify.selected', function (newValue) {
+                if (!!newValue) {
+                    angular.extend(config, {
+                        url: '/Home/GetParamsByModifyId',
+                        params: {
+                            modifyId: !!$scope.modify.selected ? $scope.modify.selected.id : 0
+                        }
+                    });
+                    var paramsPromise = dataService.getData(config);
+                    paramsPromise.then(function (response) {
+                        $scope.params = response.params.map(function (item) {
+                            return new Param(item);
+                        });
+
+                        var paramName = new ParamName({
+                            id: 0,
+                            name: '',
+                            units: ''
+                        });
+                        var param = new Param({
+                            id: 0,
+                            value: '—',
+                            paramName: paramName
+                        });
+
+                        $scope.params.splice(0, 0, param);
+                    });
+                }
+                $scope.params = [];
+            });
+
+            $scope.ok = function () {
+                var car = new Car({
+                    brand: $scope.brand.selected,
+                    model: $scope.model.selected,
+                    version: $scope.version.selected,
+                    modify: $scope.modify.selected,
+                    params: $scope.params
                 });
-            }
-            $scope.params = null;
-        });
 
-        $scope.ok = function () {
-            var car = new Car($scope.selectedBrand, $scope.selectedModel, $scope.selectedVersion, $scope.selectedModify, $scope.params);
+                $modalInstance.close(car);
+            };
 
-            $modalInstance.close(car);
-        };
-
-        $scope.cancel = function () {
-            $modalInstance.dismiss('cancel');
-        };
-    }
-])
+            $scope.cancel = function () {
+                $modalInstance.dismiss('cancel');
+            };
+        }
+    ]);

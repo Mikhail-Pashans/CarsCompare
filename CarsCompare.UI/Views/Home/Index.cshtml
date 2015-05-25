@@ -2,41 +2,51 @@
     ViewBag.Title = "CarsCompare - Главная страница";
 }
 
-@Scripts.Render("~/bundles/angular", "~/bundles/angular-ui")
+@Styles.Render("~/Content/ui-bootstrap", "~/Content/select")
+@Scripts.Render("~/bundles/angular", "~/bundles/ui-bootstrap", "~/bundles/select")
 
-<div class="jumbotron">
-    <div data-ng-app="carsCompareApp" data-ng-controller="compareCtrl">
-        <div class="row">
-            <div class="col-md-4">
-                <button type="button" class="btn lg btn-primary" data-ng-click="open()">Выбрать автомобиль для сравнения</button>
-            </div>
-        </div>
-        <div class="row" data-ng-show="!!cars.length">
-            <ul>
-                <li data-ng-repeat="car in cars">
-                    <h2>{{ car.brand.name }}</h2>
-                    <h2>{{ car.model.name }}</h2>
-                    <h2>{{ car.version.name }}</h2>
-                    <h2>{{ (car.modify.yearFrom | formatBigYear) + ' &mdash; ' + (car.modify.yearTo | formatBigYear) }}</h2>
-                    <ul>
-                        <li data-ng-repeat="paramGroup in paramGroups">
-                            <h3>{{ paramGroup.name }}</h3>
-                            <ul>
-                                <li data-ng-repeat="paramName in paramGroup.paramNames">
-                                    <span>{{ paramName.name }}</span>
-                                    &emsp;
-                                    <span data-ng-repeat="param in car.params | objectsArrayFirst : paramName">
-                                        {{ param.value | paramBlankValue }}
-                                    </span>
-                                    &emsp;
-                                    <span>{{ paramName.units }}</span>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
+<div class="jumbotron" data-ng-app="carsCompareApp">
+    <div data-ng-controller="compareCtrl">
+        <table class="table table-striped">
+            <thead class="text-center">
+                <tr>
+                    <th>
+                        <button type="button" class="btn lg btn-success" data-ng-click="addCar()">Выбрать автомобиль для сравнения</button>
+                    </th>
+                    <th class="bg-info" data-ng-repeat="car in cars" data-ng-show="!!cars.length">
+                        <span>{{ car.brand.name }}</span>
+                        <span>{{ car.model.name }}</span>
+                        <br />
+                        <span>{{ car.version.name }}</span>
+                        <br />
+                        <span>{{ (car.modify.yearFrom | formatBigYear) + ' &ndash; ' + (car.modify.yearTo | formatBigYear) }}</span>
+                    </th>
+                </tr>
+            </thead>
+            <tbody class="text-left" data-ng-repeat="paramGroup in paramGroups" data-ng-show="!!cars.length">
+                <tr class="warning">
+                    <td colspan="{{ cars.length + 1 }}">
+                        <strong>{{ paramGroup.name }}</strong>
+                    </td>
+                </tr>
+                <tr data-ng-repeat="paramName in paramGroup.paramNames">
+                    <td>
+                        <ul>
+                            <li>
+                                <em>{{ paramName.name }}</em>
+                            </li>
+                        </ul>
+                    </td>
+                    <td data-ng-repeat="car in cars">
+                        <span data-ng-repeat="param in car.params | objectsArrayFirst : paramName">
+                            {{ param.value | paramBlankValue }}
+                            &nbsp;
+                            <em>{{ param.paramName.units }}</em>
+                        </span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </div>
 

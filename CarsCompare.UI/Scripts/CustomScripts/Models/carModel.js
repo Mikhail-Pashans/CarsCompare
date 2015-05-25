@@ -1,11 +1,11 @@
-﻿var Car = function (brand, model, version, modify, params) {
+﻿var Car = function (car) {
     'use strict';
 
     var self = this;
 
-    self.brand = brand;
-    self.model = model;
-    self.version = version;
-    self.modify = modify;
-    self.params = params;
+    self.brand = car.brand;
+    self.model = car.model;
+    self.version = car.version;
+    self.modify = car.modify;
+    self.params = car.params;
 };

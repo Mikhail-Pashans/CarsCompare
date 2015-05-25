@@ -1,1 +1,1 @@
-﻿angular.module('carsCompareApp', ['ui.bootstrap'])
+﻿angular.module('carsCompareApp', ['ngSanitize', 'ui.select', 'ui.bootstrap']);
