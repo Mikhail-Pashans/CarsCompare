@@ -1,0 +1,135 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CarsCompare</title>
+    
+    <link type="text/css" rel="stylesheet" href="/Content/Css/Bootstrap/bootstrap.min.css" />
+    <link type="text/css" rel="stylesheet" href="/Content/Css/Select/select.css"/>
+    <link type="text/css" rel="stylesheet" href="/Content/Css/Select/select2.css" />
+    <link type="text/css" rel="stylesheet" href="/Content/Css/Site.css" />
+
+    <script type="text/javascript" src="/Scripts/jQuery/jquery-2.1.4.js"></script>
+    <script type="text/javascript" src="/Scripts/Bootstrap/bootstrap.js"></script>
+    <script type="text/javascript" src="/Scripts/Bootstrap/ui-bootstrap.js"></script>
+    <script type="text/javascript" src="/Scripts/Select/select.js"></script>
+    <script type="text/javascript" src="/Scripts/Angular/angular.js"></script>
+    <script type="text/javascript" src="/Scripts/Angular/angular-route.js"></script>
+    <script type="text/javascript" src="/Scripts/Angular/angular-sanitize.js"></script>
+    
+    <script type="text/javascript" src="/Scripts/CustomScripts/Modules/carsCompareApplication.js"></script>
+    <script type="text/javascript" src="/Scripts/CustomScripts/Modules/carsCompareControllers.js"></script>
+    <script type="text/javascript" src="/Scripts/CustomScripts/Modules/carsCompareFilters.js"></script>
+    <script type="text/javascript" src="/Scripts/CustomScripts/Modules/carsCompareServices.js"></script>
+
+    <script type="text/javascript" src="/Scripts/CustomScripts/Controllers/compareController.js"></script>
+    <script type="text/javascript" src="/Scripts/CustomScripts/Controllers/modalInstancesController.js"></script>
+    
+    <script type="text/javascript" src="/Scripts/CustomScripts/Filters/arrayPropsFilter.js"></script>
+    <script type="text/javascript" src="/Scripts/CustomScripts/Filters/formatBigYearFilter.js"></script>
+    <script type="text/javascript" src="/Scripts/CustomScripts/Filters/objectsArrayFirstFilter.js"></script>
+    <script type="text/javascript" src="/Scripts/CustomScripts/Filters/paramBlankValueFilter.js"></script>
+    
+    <script type="text/javascript" src="/Scripts/CustomScripts/Models/brandModel.js"></script>
+    <script type="text/javascript" src="/Scripts/CustomScripts/Models/carModel.js"></script>
+    <script type="text/javascript" src="/Scripts/CustomScripts/Models/modelModel.js"></script>
+    <script type="text/javascript" src="/Scripts/CustomScripts/Models/modifyModel.js"></script>
+    <script type="text/javascript" src="/Scripts/CustomScripts/Models/paramGroupModel.js"></script>
+    <script type="text/javascript" src="/Scripts/CustomScripts/Models/paramModel.js"></script>
+    <script type="text/javascript" src="/Scripts/CustomScripts/Models/paramNameModel.js"></script>
+    <script type="text/javascript" src="/Scripts/CustomScripts/Models/versionModel.js"></script>
+    
+    <script type="text/javascript" src="/Scripts/CustomScripts/Services/dataService.js"></script>
+
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <span class="icon"></span>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav custom-nav-text">
+                    <li></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        <div class="jumbotron" data-ng-app="carsCompareApplication">
+            <div data-ng-controller="compareCtrl">
+                <table class="table table-striped">
+                    <thead class="text-center">
+                        <tr>
+                            <th class="text-center one-fifth">
+                                <div class="full-width cp" data-ng-click="addCar()">
+                                    <p>Выбрать автомобиль для сравнения</p>
+                                    <img src="/Content/Images/add.png" alt="" />
+                                    <p class="full-width text-center">
+                                        <small><a href="javascript:void(0)" data-ng-click="clearCars()">Очистить сравнение</a></small>
+                                    </p>
+                                </div>
+                            </th>
+                            <th class="bg-info" data-ng-repeat="car in cars" data-ng-if="!!cars.length" class="one-fifth">
+                                <div class="full-width">
+                                    <p>{{ car.brand.name + ' ' + car.model.name }}</p>
+                                    <p>{{ car.version.name }}</p>
+                                    <p>{{ (car.modify.yearFrom | formatBigYear) + ' &ndash; ' + (car.modify.yearTo | formatBigYear) }}</p>
+                                    <p>
+                                        <small>
+                                            <a class="pull-left" href="javascript:void(0)" data-ng-click="changeCar($index)">Изменить</a>
+                                        </small>
+                                        &emsp;
+                                        <small>
+                                            <a class="pull-right" href="javascript:void(0)" data-ng-click="removeCar($index)">Удалить</a>
+                                        </small>
+                                    </p>
+                                </div>
+                            </th>
+                            <th data-ng-if="!cars.length" colspan="4">&nbsp;</th>
+                            <th data-ng-if="cars.length < 4" colspan="{{ 4 - cars.length }}">&nbsp;</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-left" data-ng-repeat="paramGroup in paramGroups" data-ng-if="!!cars.length">
+                        <tr class="warning">
+                            <td class="one-fifth">
+                                <strong>{{ paramGroup.name }}</strong>
+                            </td>
+                            <td colspan="{{ cars.length }}"></td>
+                            <td data-ng-if="cars.length < 4" colspan="{{ 4 - cars.length }}">&nbsp;</td>
+                        </tr>
+                        <tr data-ng-repeat="paramName in paramGroup.paramNames">
+                            <td class="one-fifth">
+                                <ul>
+                                    <li>
+                                        <em>{{ paramName.name }}</em>
+                                    </li>
+                                </ul>
+                            </td>
+                            <td data-ng-repeat="car in cars" data-ng-if="!!cars.length" class="one-fifth">
+                                <span data-ng-repeat="param in car.params | objectsArrayFirst : paramName">
+                                    {{ param.value | paramBlankValue }}
+                                    &nbsp;
+                                    <em>{{ param.paramName.units }}</em>
+                                </span>
+                            </td>
+                            <td data-ng-if="cars.length < 4" colspan="{{ 4 - cars.length }}">&nbsp;</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <hr />
+        <footer>
+            <p>&copy;&nbsp;&nbsp;&ndash;&nbsp;CarsCompare</p>
+        </footer>
+    </div>
+</body>
+</html>
+
