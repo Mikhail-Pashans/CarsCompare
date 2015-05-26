@@ -235,6 +235,7 @@
     <Compile Include="ViewModels\VersionViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="ClientTemplates\compare.html" />
     <Content Include="ClientTemplates\modalInstanceTemplate.html" />
     <Content Include="Content\CSS\Bootstrap\bootstrap-theme.css" />
     <Content Include="Content\CSS\Bootstrap\bootstrap-theme.min.css" />
@@ -319,6 +320,11 @@
     <Content Include="Scripts\Angular\angular-aria.min.js.map" />
     <Content Include="Scripts\Angular\angular-animate.min.js.map" />
     <Content Include="Scripts\Angular\angular.min.js.map" />
+    <Content Include="brands.json" />
+    <Content Include="models.json" />
+    <Content Include="modifies.json" />
+    <Content Include="paramGroups.json" />
+    <Content Include="params.json" />
     <None Include="Scripts\jQuery\jquery-2.1.4.intellisense.js" />
     <Content Include="Scripts\Bootstrap\bootstrap.js" />
     <Content Include="Scripts\Bootstrap\bootstrap.min.js" />
@@ -1120,6 +1126,7 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\BrowserFilter\Index.cshtml" />
     <Content Include="Scripts\version.json" />
+    <Content Include="versions.json" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Base\" />

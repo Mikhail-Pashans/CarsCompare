@@ -15,7 +15,7 @@ carsCompareApp.controller('compareCtrl',
             };
 
             angular.extend(config, {
-                url: '/Home/GetParamGroupsWithParamNames'
+                url: '../paramGroups.json'//'/Home/GetParamGroupsWithParamNames'
             });
             var promiseObject = dataService.getData(config);
             promiseObject.then(function (response) {
@@ -29,7 +29,7 @@ carsCompareApp.controller('compareCtrl',
             $scope.addCar = function () {
                 var modalInstance = $modal.open({
                     animation: true,
-                    templateUrl: 'ClientTemplates/modalInstanceTemplate.html',
+                    templateUrl: '../ClientTemplates/modalInstanceTemplate.html',
                     controller: 'modalInstancesCtrl',
                     resolve: {
                         config: function () {

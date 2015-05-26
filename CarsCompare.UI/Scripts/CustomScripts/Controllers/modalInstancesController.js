@@ -41,7 +41,7 @@ carsCompareApp.controller('modalInstancesCtrl',
             var firstUpload = true;
 
             angular.extend(config, {
-                url: '/Home/GetBrands'
+                url: '../brands.json'//'/Home/GetBrands'
             });
             var brandsPromise = dataService.getData(config);
             brandsPromise.then(function (response) {
@@ -56,10 +56,10 @@ carsCompareApp.controller('modalInstancesCtrl',
                 }
                 if (!!newValue) {
                     angular.extend(config, {
-                        url: '/Home/GetModelsByBrandId',
-                        params: {
-                            brandId: !!$scope.brand.selected ? $scope.brand.selected.id : 0
-                        }
+                        url: '../models.json'//'/Home/GetModelsByBrandId',
+                        //params: {
+                        //    brandId: !!$scope.brand.selected ? $scope.brand.selected.id : 0
+                        //}
                     });
                     var modelsPromise = dataService.getData(config);
                     modelsPromise.then(function (response) {
@@ -83,10 +83,10 @@ carsCompareApp.controller('modalInstancesCtrl',
                 }
                 if (!!newValue) {
                     angular.extend(config, {
-                        url: '/Home/GetVersionsByModelId',
-                        params: {
-                            modelId: !!$scope.model.selected ? $scope.model.selected.id : 0
-                        }
+                        url: '../versions.json'//'/Home/GetVersionsByModelId',
+                        //params: {
+                        //    modelId: !!$scope.model.selected ? $scope.model.selected.id : 0
+                        //}
                     });
                     var vearsionsPromise = dataService.getData(config);
                     vearsionsPromise.then(function (response) {
@@ -108,11 +108,11 @@ carsCompareApp.controller('modalInstancesCtrl',
                 }
                 if (!!newValue) {
                     angular.extend(config, {
-                        url: '/Home/GetModifiesByModelIdAndVersionId',
-                        params: {
-                            modelId: !!$scope.model.selected ? $scope.model.selected.id : 0,
-                            versionId: !!$scope.version.selected ? $scope.version.selected.id : 0
-                        }
+                        url: '../modifies.json'//'/Home/GetModifiesByModelIdAndVersionId',
+                        //params: {
+                        //    modelId: !!$scope.model.selected ? $scope.model.selected.id : 0,
+                        //    versionId: !!$scope.version.selected ? $scope.version.selected.id : 0
+                        //}
                     });
                     var modifiesPromise = dataService.getData(config);
                     modifiesPromise.then(function (response) {
@@ -133,10 +133,10 @@ carsCompareApp.controller('modalInstancesCtrl',
                 }
                 if (!!newValue) {
                     angular.extend(config, {
-                        url: '/Home/GetParamsByModifyId',
-                        params: {
-                            modifyId: !!$scope.modify.selected ? $scope.modify.selected.id : 0
-                        }
+                        url: '../params.json'//'/Home/GetParamsByModifyId',
+                        //params: {
+                        //    modifyId: !!$scope.modify.selected ? $scope.modify.selected.id : 0
+                        //}
                     });
                     var paramsPromise = dataService.getData(config);
                     paramsPromise.then(function (response) {
