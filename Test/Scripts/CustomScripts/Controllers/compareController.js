@@ -86,14 +86,6 @@ carsCompareApp.controller('compareCtrl',
             $scope.paramGroups =
             [
                 {
-                    "id": 0,
-                    "name": "Общие",
-                    "paramNames": [
-                        { "id": 1, "name": "Цена", "units": "$" },
-                        { "id": 2, "name": "Год", "units": "", best: true }
-                    ]
-                },
-                {
                     "id": 1,
                     "name": "Кузов",
                     "paramNames": [
