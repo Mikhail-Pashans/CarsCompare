@@ -5,67 +5,61 @@
 @Styles.Render("~/Content/ui-bootstrap", "~/Content/select")
 @Scripts.Render("~/bundles/angular", "~/bundles/ui-bootstrap", "~/bundles/select")
 
-<div class="jumbotron" data-ng-app="carsCompareApplication">
-    <div data-ng-controller="compareCtrl">
-        <table class="table table-striped">
-            <thead class="text-center">
-                <tr>
-                    <th class="text-center one-fifth">
-                        <div class="full-width cp" data-ng-click="addCar()">
-                            <p>Выбрать автомобиль для сравнения</p>
-                            <img src="@Url.Content("~/Content/Images/add.png")" alt="" />
-                            <p class="full-width text-center">
-                                <small><a href="javascript:void(0)" data-ng-click="clearCars()">Очистить сравнение</a></small>
-                            </p>
+<div data-ng-app="carsCompareApplication">
+    <div class="jumbotron" data-ng-controller="compareCtrl">
+        <div class="full-width">
+            <div class="disp-inl-block" style="width: calc(20% - 1px);">
+                <div class="text-center curs-point" data-ng-click="addCar()">
+                    <p>Выбрать автомобиль для сравнения</p>
+                    <img src="@Url.Content("~/Content/Images/add.png")" alt="" />
+                    <p class="full-width text-center">
+                        <small><a href="javascript:void(0)" data-ng-click="clearCars()">Очистить сравнение</a></small>
+                    </p>
+                </div>
+            </div>
+            <div class="disp-inl-block text-center bg-info" data-ng-if="!!cars.length" data-ng-repeat="car in cars" style="width: calc(20% - 1px);">
+                <div>
+                    <p>{{ car.brand.name + ' ' + car.model.name }}</p>
+                    <p>{{ car.version.name }}</p>
+                    <p>{{ (car.modify.yearFrom | formatBigYear) + ' &ndash; ' + (car.modify.yearTo | formatBigYear) }}</p>
+                    <p>
+                        <small>
+                            <a class="pull-left" href="javascript:void(0)" data-ng-click="changeCar($index)">Изменить</a>
+                        </small>
+                        &emsp;
+                        <small>
+                            <a class="pull-right" href="javascript:void(0)" data-ng-click="removeCar($index)">Удалить</a>
+                        </small>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="full-width">
+            <accordion close-others="false">
+                <accordion-group class="full-width" data-ng-if="!!cars.length" data-ng-repeat="paramGroup in paramGroups" is-open="paramGroup.isOpened">
+                    <accordion-heading>
+                        {{ paramGroup.name }}
+                        <i class="pull-right glyphicon" ng-class="{ 'glyphicon-chevron-down': paramGroup.isOpened, 'glyphicon-chevron-up': !paramGroup.isOpened }"></i>
+                    </accordion-heading>
+                    <div class="full-width" data-ng-repeat="paramName in paramGroup.paramNames">
+                        <div class="disp-inl-block" style="width: calc(20% - 1px);">
+                            <ul>
+                                <li>
+                                    <em>{{ paramName.name }}</em>
+                                </li>
+                            </ul>
                         </div>
-                    </th>
-                    <th class="bg-info" data-ng-repeat="car in cars" data-ng-if="!!cars.length" class="one-fifth">
-                        <div class="full-width">
-                            <p>{{ car.brand.name + ' ' + car.model.name }}</p>
-                            <p>{{ car.version.name }}</p>
-                            <p>{{ (car.modify.yearFrom | formatBigYear) + ' &ndash; ' + (car.modify.yearTo | formatBigYear) }}</p>
-                            <p>
-                                <small>
-                                    <a class="pull-left" href="javascript:void(0)" data-ng-click="changeCar($index)">Изменить</a>
-                                </small>
-                                &emsp;
-                                <small>
-                                    <a class="pull-right" href="javascript:void(0)" data-ng-click="removeCar($index)">Удалить</a>
-                                </small>
-                            </p>
+                        <div class="disp-inl-block" data-ng-repeat="car in cars" data-ng-if="!!cars.length" style="width: calc(20% - 1px);">
+                            <span data-ng-repeat="param in car.params | objectsArrayFirst : paramName">
+                                {{ param.value | paramBlankValue }}
+                                &nbsp;
+                                <em>{{ param.paramName.units }}</em>
+                            </span>
                         </div>
-                    </th>
-                    <th data-ng-if="!cars.length" colspan="4">&nbsp;</th>
-                    <th data-ng-if="cars.length < 4" colspan="{{ 4 - cars.length }}">&nbsp;</th>
-                </tr>
-            </thead>
-            <tbody class="text-left" data-ng-repeat="paramGroup in paramGroups" data-ng-if="!!cars.length">
-                <tr class="warning">
-                    <td class="one-fifth">
-                        <strong>{{ paramGroup.name }}</strong>
-                    </td>
-                    <td colspan="{{ cars.length }}"></td>
-                    <td data-ng-if="cars.length < 4" colspan="{{ 4 - cars.length }}">&nbsp;</td>
-                </tr>
-                <tr data-ng-repeat="paramName in paramGroup.paramNames">
-                    <td class="one-fifth">
-                        <ul>
-                            <li>
-                                <em>{{ paramName.name }}</em>
-                            </li>
-                        </ul>
-                    </td>
-                    <td data-ng-repeat="car in cars" data-ng-if="!!cars.length" class="one-fifth">
-                        <span data-ng-repeat="param in car.params | objectsArrayFirst : paramName">
-                            {{ param.value | paramBlankValue }}
-                            &nbsp;
-                            <em>{{ param.paramName.units }}</em>
-                        </span>
-                    </td>
-                    <td data-ng-if="cars.length < 4" colspan="{{ 4 - cars.length }}">&nbsp;</td>
-                </tr>
-            </tbody>
-        </table>
+                    </div>
+                </accordion-group>
+            </accordion>
+        </div>
     </div>
 </div>
 

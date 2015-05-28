@@ -8,4 +8,5 @@
     self.paramNames = paramGroup.paramNames.map(function (item) {
         return new ParamName(item);
     });
+    self.isOpened = true;
 };

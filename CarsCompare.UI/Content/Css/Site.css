@@ -1,12 +1,12 @@
 ﻿body {
     padding-top: 50px;
-    padding-bottom: 20px;
+    padding-bottom: 20px;    
 }
 
 /* Set padding to keep content from hitting the edges */
 .body-content {
     padding-left: 15px;
-    padding-right: 15px;
+    padding-right: 15px;    
 }
 
 /* Override the default bootstrap behavior where horizontal description lists 
@@ -39,19 +39,33 @@ textarea {
 }
 
 .full-width {
-    margin: 0;
-    width: 100%;
+    margin: 0 !important;
+    width: 100% !important;
 }
 
 .one-fifth {
-    margin: 0;
-    width: 20%;
+    margin: 0 !important;
+    width: 20% !important;
 }
 
-.db {
-    display: block;
+.full-height {
+    margin: 0 !important;
+    height: 100% !important;
 }
 
-.cp {
+.disp-block {
+    display: block !important;
+}
+
+.disp-inl-block {
+    display: inline-block !important;
+}
+
+.vert-center {    
+    vertical-align: middle !important;
+    float: none;
+}
+
+.curs-point {
     cursor: pointer;
 }
