@@ -48,8 +48,8 @@ carsCompareApp.controller('compareCtrl',
                 });
             };
 
-            $scope.removeCar = function (car) {
-                $scope.remove(car);
+            $scope.removeCar = function (index) {
+                $scope.cars.splice(index, 1)
             };
 
 

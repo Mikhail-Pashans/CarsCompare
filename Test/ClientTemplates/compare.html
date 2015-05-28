@@ -78,7 +78,7 @@
                 <div class="row mt-15">
                     <div class="col-md-{{12 / cars.length}}" data-ng-repeat="car in cars">
                         <div class="thumbnail">
-                            <button type="button" data-ng-click="removeCar(car)" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <span data-ng-click="removeCar($index)" class="close"><span aria-hidden="true">&times;</span></span>
                             <img ng-src="{{car.image}}" alt="{{car.name}}" class="mt-25">
                             <div class="caption">
                                 <h4 ng-class="car.best ? 'text-success' : ''">{{car.name}}</h4>
