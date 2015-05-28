@@ -1,0 +1,118 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CarsCompare</title>
+
+    <link type="text/css" rel="stylesheet" href="/Content/Css/Bootstrap/bootstrap.css"/>
+    <link type="text/css" rel="stylesheet" href="/Content/Css/Bootstrap/ui-bootstrap-csp.css" />
+    <link type="text/css" rel="stylesheet" href="/Content/Css/Select/select.css"/>
+    <link type="text/css" rel="stylesheet" href="/Content/Css/Select/select2.css" />
+    <link type="text/css" rel="stylesheet" href="/Content/Css/Site.css" />
+
+    <script type="text/javascript" src="/Scripts/jQuery/jquery-2.1.4.js"></script>
+    <script type="text/javascript" src="/Scripts/Bootstrap/bootstrap.js"></script>
+    <script type="text/javascript" src="/Scripts/Angular/angular.js"></script>
+    <script type="text/javascript" src="/Scripts/Angular/angular-sanitize.js"></script>
+    <script type="text/javascript" src="/Scripts/Bootstrap/ui-bootstrap.js"></script>
+    <script type="text/javascript" src="/Scripts/Bootstrap/ui-bootstrap-tpls.js"></script>
+    <script type="text/javascript" src="/Scripts/Modernizr/modernizr-2.8.3.js"></script>
+    <script type="text/javascript" src="/Scripts/Respond/respond.js"></script>
+    <script type="text/javascript" src="/Scripts/Select/select.js"></script>
+    
+    <script type="text/javascript" src="/Scripts/CustomScripts/Modules/carsCompareApplication.js"></script>
+    <script type="text/javascript" src="/Scripts/CustomScripts/Modules/carsCompareControllers.js"></script>
+    <script type="text/javascript" src="/Scripts/CustomScripts/Modules/carsCompareFilters.js"></script>
+    <script type="text/javascript" src="/Scripts/CustomScripts/Modules/carsCompareServices.js"></script>
+
+    <script type="text/javascript" src="/Scripts/CustomScripts/Controllers/compareController.js"></script>
+    <script type="text/javascript" src="/Scripts/CustomScripts/Controllers/modalInstancesController.js"></script>
+    
+    <script type="text/javascript" src="/Scripts/CustomScripts/Filters/arrayPropsFilter.js"></script>
+    <script type="text/javascript" src="/Scripts/CustomScripts/Filters/formatBigYearFilter.js"></script>
+    <script type="text/javascript" src="/Scripts/CustomScripts/Filters/objectsArrayFirstFilter.js"></script>
+    <script type="text/javascript" src="/Scripts/CustomScripts/Filters/paramBlankValueFilter.js"></script>
+
+    <script type="text/javascript" src="/Scripts/CustomScripts/Services/dataService.js"></script>
+
+    <script type="text/javascript" src="/Scripts/CustomScripts/Models/brandModel.js"></script>
+    <script type="text/javascript" src="/Scripts/CustomScripts/Models/carModel.js"></script>
+    <script type="text/javascript" src="/Scripts/CustomScripts/Models/modelModel.js"></script>
+    <script type="text/javascript" src="/Scripts/CustomScripts/Models/modifyModel.js"></script>
+    <script type="text/javascript" src="/Scripts/CustomScripts/Models/paramGroupModel.js"></script>
+    <script type="text/javascript" src="/Scripts/CustomScripts/Models/paramModel.js"></script>
+    <script type="text/javascript" src="/Scripts/CustomScripts/Models/paramNameModel.js"></script>
+    <script type="text/javascript" src="/Scripts/CustomScripts/Models/versionModel.js"></script>       
+
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <span class="icon"></span>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav custom-nav-text">
+                    <li></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container body-content mt-15">
+        <div data-ng-app="carsCompareApplication">
+            <div data-ng-controller="compareCtrl">
+                <div class="row mt-15">
+                    <div class="col-md-6">
+                        <button class="btn btn-success" data-ng-click="addCar()">Выбрать автомобиль для сравнения</button>
+                    </div>
+                    <div class="col-md-6 text-right">
+                        <button class="btn btn-link" data-ng-click="clearCars()">Очистить сравнение</button>
+                    </div>
+                </div>
+                <div class="row mt-15">
+                    <div class="col-md-{{12 / cars.length}}" data-ng-repeat="car in cars">
+                        <div class="thumbnail">
+                            <button type="button" data-ng-click="removeCar(car)" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <img ng-src="{{car.image}}" alt="{{car.name}}" class="mt-25">
+                            <div class="caption">
+                                <h4 ng-class="car.best ? 'text-success' : ''">{{car.name}}</h4>
+                            </div>
+                            <div class="panel-group" id="accordion{{car.id}}" role="tablist" aria-multiselectable="true">
+                                <div class="panel panel-default">
+                                    <div data-ng-repeat="group in car.groups">
+                                        <div class="panel-heading" role="tab" id="heading{{car.id}}{{group.id}}">
+                                            <h4 class="panel-title">
+                                                <a data-toggle="collapse" data-parent="#accordion{{car.id}}" href="#collapse{{car.id}}{{group.id}}" aria-expanded="true" aria-controls="collapse{{car.id}}{{group.id}}">
+                                                    {{group.name}}
+                                                </a>
+                                            </h4>
+                                        </div>
+                                        <div id="collapse{{car.id}}{{group.id}}" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading{{car.id}}{{group.id}}">
+                                            <div class="panel-body">
+                                                <p ng-class="param.best ? 'text-success' : 'text-muted'" ng-repeat="param in group.paramNames">
+                                                    {{param.name}} <span ng-if="param.units">({{param.units}})</span>: xx
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr />
+        <footer>
+            <p>&copy;&nbsp;2015&nbsp;&ndash;&nbsp;CarsCompare</p>
+        </footer>
+    </div>
+</body>
+</html>
+
