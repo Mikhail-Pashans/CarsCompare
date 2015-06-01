@@ -8,4 +8,5 @@
     self.version = car.version;
     self.modify = car.modify;
     self.params = car.params;
+    self.image = car.image;
 };

@@ -1,7 +1,7 @@
 ﻿@model CarsCompare.UI.ViewModels.VerifyCodeViewModel
 
 @{
-    ViewBag.Title = "Verify";
+    ViewBag.Title = "Подтверждение кода";
 }
 
 <h2>@ViewBag.Title.</h2>
@@ -11,7 +11,7 @@
     @Html.AntiForgeryToken()
     @Html.Hidden("provider", @Model.Provider)
     @Html.Hidden("rememberMe", @Model.RememberMe)
-    <h4>Enter verification code</h4>
+    <h4>Введите код подтверждения</h4>
     <hr />
     @Html.ValidationSummary("", new { @class = "text-danger" })
     <div class="form-group">
@@ -30,7 +30,7 @@
     </div>
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            <input type="submit" class="btn btn-default" value="Submit" />
+            <input type="submit" class="btn btn-default" value="ОК" />
         </div>
     </div>
 }

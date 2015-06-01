@@ -15,7 +15,7 @@ carsCompareApp.controller('compareCtrl',
             };
 
             angular.extend(config, {
-                url: '../paramGroups.json'//'/Home/GetParamGroupsWithParamNames'
+                url: '/Home/GetParamGroupsWithParamNames'
             });
             var promiseObject = dataService.getData(config);
             promiseObject.then(function (response) {
@@ -29,13 +29,13 @@ carsCompareApp.controller('compareCtrl',
             $scope.addCar = function () {
                 var modalInstance = $modal.open({
                     animation: true,
-                    templateUrl: '../ClientTemplates/modalInstanceTemplate.html',
+                    templateUrl: 'ClientTemplates/modalInstanceTemplate.html',
                     controller: 'modalInstancesCtrl',
                     resolve: {
                         config: function () {
                             return config;
                         },
-                        car: function() {
+                        car: function () {
                             return null;
                         }
                     }
@@ -43,6 +43,7 @@ carsCompareApp.controller('compareCtrl',
 
                 modalInstance.result.then(function (car) {
                     $scope.cars.push(car);
+                    $scope.cars[0].best = true;
                 }, function () {
                     $log.info('Modal dismissed at: ' + new Date());
                 });

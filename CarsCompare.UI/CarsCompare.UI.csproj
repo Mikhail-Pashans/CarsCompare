@@ -223,6 +223,7 @@
     <Compile Include="ViewModels\AccountViewModels.cs" />
     <Compile Include="App_Code\IdentityModels.cs" />
     <Compile Include="ViewModels\BrandViewModel.cs" />
+    <Compile Include="ViewModels\CarViewModel.cs" />
     <Compile Include="ViewModels\DataResultViewModel.cs" />
     <Compile Include="ViewModels\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -235,7 +236,6 @@
     <Compile Include="ViewModels\VersionViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="ClientTemplates\compare.html" />
     <Content Include="ClientTemplates\modalInstanceTemplate.html" />
     <Content Include="Content\CSS\Bootstrap\bootstrap-theme.css" />
     <Content Include="Content\CSS\Bootstrap\bootstrap-theme.min.css" />
@@ -251,6 +251,7 @@
     <Content Include="Content\Images\browser-safari.png" />
     <Content Include="Content\CSS\Bootstrap\ui-bootstrap-csp.css" />
     <Content Include="Content\Images\compare-header-icon.png" />
+    <Content Include="Content\Images\header-bg.png" />
     <Content Include="Content\Images\select2-spinner.gif" />
     <Content Include="Content\Images\select2.png" />
     <Content Include="Content\Images\select2x2.png" />

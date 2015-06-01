@@ -1,10 +1,15 @@
-﻿using CarsCompare.Database;
+﻿using System;
+using System.IO;
+using System.Linq;
+using CarsCompare.Database;
 using CarsCompare.Logger;
 using CarsCompare.UI.ActionFilters;
 using CarsCompare.UI.Cache;
 using CarsCompare.UI.ViewModels;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using CarsCompare.Database.Models.Data;
+using Version = System.Version;
 
 namespace CarsCompare.UI.Controllers
 {
@@ -30,40 +35,6 @@ namespace CarsCompare.UI.Controllers
 
             return View();
         }
-
-        //[HttpGet]
-        //[BrowserActionFilter]
-        //public async Task<JsonResult> GetData()
-        //{
-        //    var brandSearch = new BrandSearch(_unitOfWork, _cache, _logWriter);
-        //    var modelSearch = new ModelSearch(_unitOfWork, _cache, _logWriter);
-        //    var versionSearch = new VersionSearch(_unitOfWork, _cache, _logWriter);
-        //    var modifySearch = new ModifySearch(_unitOfWork, _cache, _logWriter);
-        //    var paramSearch = new ParamSearch(_unitOfWork, _cache, _logWriter);
-        //    var paramNameSearch = new ParamNameSearch(_unitOfWork, _cache, _logWriter);
-        //    var paramGroupSearch = new ParamGroupSearch(_unitOfWork, _cache, _logWriter);
-
-        //    var brandViewModels = await brandSearch.GetBrands();
-        //    var modelViewModels = await modelSearch.GetModels();
-        //    var versionViewModels = await versionSearch.GetVersions();
-        //    var modifyViewModels = await modifySearch.GetModifies();
-        //    var paramViewModels = await paramSearch.GetParams();
-        //    var paramNameViewModels = await paramNameSearch.GetParamNames();
-        //    var paramGroupViewModels = await paramGroupSearch.GetParamGroups();
-
-        //    var result = new DataResultViewModel
-        //    {
-        //        Brands = brandViewModels,
-        //        Models = modelViewModels,
-        //        Versions = versionViewModels,
-        //        Modifies = modifyViewModels,
-        //        Params = paramViewModels,
-        //        ParamNames = paramNameViewModels,
-        //        ParamGroups = paramGroupViewModels
-        //    };
-
-        //    return Json(result, JsonRequestBehavior.AllowGet);
-        //}
 
         [HttpGet]
         [BrowserActionFilter]
@@ -131,15 +102,18 @@ namespace CarsCompare.UI.Controllers
 
         [HttpGet]
         [BrowserActionFilter]
-        public async Task<JsonResult> GetParamsByModifyId(int modifyId)
+        public async Task<JsonResult> GetParamsAndImageByModifyId(int brandId, int modelId, int versionId, int modifyId)
         {
             var paramSearch = new ParamSearch(_unitOfWork, _cache, _logWriter);
 
             var paramViewModels = await paramSearch.GetParamsByModifyId(modifyId);
 
+            var image = Directory.EnumerateFiles(@"\\localhost\CarsImages", string.Format("{0}_{1}_{2}_*", brandId, modelId, versionId), SearchOption.TopDirectoryOnly).FirstOrDefault();
+
             var result = new DataResultViewModel
             {
-                Params = paramViewModels
+                Params = paramViewModels,
+                Image = !string.IsNullOrWhiteSpace(image) ? image.Replace("\\\\localhost", "") : string.Empty
             };
 
             return Json(result, JsonRequestBehavior.AllowGet);
@@ -159,24 +133,6 @@ namespace CarsCompare.UI.Controllers
             };
 
             return Json(result, JsonRequestBehavior.AllowGet);
-        }
-
-        [HttpGet]
-        [BrowserActionFilter]
-        public ActionResult About()
-        {
-            ViewBag.Message = "CarsCompare description page.";
-
-            return View();
-        }
-
-        [HttpGet]
-        [BrowserActionFilter]
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
         }
 
         protected override void Dispose(bool disposing)

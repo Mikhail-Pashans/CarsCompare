@@ -41,7 +41,7 @@ carsCompareApp.controller('modalInstancesCtrl',
             var firstUpload = true;
 
             angular.extend(config, {
-                url: '../brands.json'//'/Home/GetBrands'
+                url: '/Home/GetBrands'
             });
             var brandsPromise = dataService.getData(config);
             brandsPromise.then(function (response) {
@@ -56,10 +56,10 @@ carsCompareApp.controller('modalInstancesCtrl',
                 }
                 if (!!newValue) {
                     angular.extend(config, {
-                        url: '../models.json'//'/Home/GetModelsByBrandId',
-                        //params: {
-                        //    brandId: !!$scope.brand.selected ? $scope.brand.selected.id : 0
-                        //}
+                        url: '/Home/GetModelsByBrandId',
+                        params: {
+                            brandId: !!$scope.brand.selected ? $scope.brand.selected.id : 0
+                        }
                     });
                     var modelsPromise = dataService.getData(config);
                     modelsPromise.then(function (response) {
@@ -83,10 +83,10 @@ carsCompareApp.controller('modalInstancesCtrl',
                 }
                 if (!!newValue) {
                     angular.extend(config, {
-                        url: '../versions.json'//'/Home/GetVersionsByModelId',
-                        //params: {
-                        //    modelId: !!$scope.model.selected ? $scope.model.selected.id : 0
-                        //}
+                        url: '/Home/GetVersionsByModelId',
+                        params: {
+                            modelId: !!$scope.model.selected ? $scope.model.selected.id : 0
+                        }
                     });
                     var vearsionsPromise = dataService.getData(config);
                     vearsionsPromise.then(function (response) {
@@ -108,11 +108,11 @@ carsCompareApp.controller('modalInstancesCtrl',
                 }
                 if (!!newValue) {
                     angular.extend(config, {
-                        url: '../modifies.json'//'/Home/GetModifiesByModelIdAndVersionId',
-                        //params: {
-                        //    modelId: !!$scope.model.selected ? $scope.model.selected.id : 0,
-                        //    versionId: !!$scope.version.selected ? $scope.version.selected.id : 0
-                        //}
+                        url: '/Home/GetModifiesByModelIdAndVersionId',
+                        params: {
+                            modelId: !!$scope.model.selected ? $scope.model.selected.id : 0,
+                            versionId: !!$scope.version.selected ? $scope.version.selected.id : 0
+                        }
                     });
                     var modifiesPromise = dataService.getData(config);
                     modifiesPromise.then(function (response) {
@@ -131,18 +131,22 @@ carsCompareApp.controller('modalInstancesCtrl',
                     firstUpload = false;
                     return;
                 }
-                if (!!newValue) {
+                if (!!newValue) {                    
                     angular.extend(config, {
-                        url: '../params.json'//'/Home/GetParamsByModifyId',
-                        //params: {
-                        //    modifyId: !!$scope.modify.selected ? $scope.modify.selected.id : 0
-                        //}
+                        url: '/Home/GetParamsAndImageByModifyId',
+                        params: {
+                            brandId: !!$scope.brand.selected ? $scope.brand.selected.id : 0,
+                            modelId: !!$scope.model.selected ? $scope.model.selected.id : 0,
+                            versionId: !!$scope.version.selected ? $scope.version.selected.id : 0,
+                            modifyId: !!$scope.modify.selected ? $scope.modify.selected.id : 0
+                        }
                     });
                     var paramsPromise = dataService.getData(config);
                     paramsPromise.then(function (response) {
                         $scope.params = response.params.map(function (item) {
                             return new Param(item);
                         });
+                        $scope.image = response.image;
 
                         var paramName = new ParamName({
                             id: 0,
@@ -162,15 +166,16 @@ carsCompareApp.controller('modalInstancesCtrl',
             });
 
             $scope.ok = function () {
-                var car = new Car({
+                var newCar = new Car({                    
                     brand: $scope.brand.selected,
                     model: $scope.model.selected,
                     version: $scope.version.selected,
                     modify: $scope.modify.selected,
-                    params: $scope.params
+                    params: $scope.params,
+                    image: $scope.image
                 });
 
-                $modalInstance.close(car);
+                $modalInstance.close(newCar);
             };
 
             $scope.cancel = function () {

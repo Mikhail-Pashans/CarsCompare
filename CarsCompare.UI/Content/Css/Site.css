@@ -23,14 +23,9 @@ textarea {
     max-width: 280px;
 }
 
-.icon {
-    background: url("/Content/Images/compare-header-icon.png") no-repeat;
-    width: 70px;
-    height: 62px;
-    position: relative;
-    float: left;
-    left: -80px;
-    margin-right: -100px;
+.header {
+    background: url("/Content/Images/header-bg.png") repeat-x #f0e600;
+    position: relative;    
 }
 
 .custom-nav-text {
@@ -54,4 +49,12 @@ textarea {
 
 .cp {
     cursor: pointer;
+}
+
+.mt-15 {
+    margin-top: 15px;
+}
+
+.mt-25 {
+    margin-top: 25px;
 }
