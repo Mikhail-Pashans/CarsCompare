@@ -43,7 +43,9 @@ carsCompareApp.controller('compareCtrl',
 
                 modalInstance.result.then(function (car) {
                     $scope.cars.push(car);
-                    $scope.cars[0].best = true;
+                    if ($scope.cars.length > 1) {
+                        $scope.cars[1].best = true;
+                    }
                 }, function () {
                     $log.info('Modal dismissed at: ' + new Date());
                 });

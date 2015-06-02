@@ -20,28 +20,27 @@
                 <div class="thumbnail">
                     <button class="btn btn-link" data-ng-click="changeCar($index)">Изменить</button>
                     <span class="close" data-ng-click="removeCar($index)"><span aria-hidden="true">&times;</span></span>
-                    <img class="mt-25" data-ng-src="{{ car.image }}" alt="{{ car.brand.name + ' ' +  car.model.name + ' ' + car.version.gen + ' ' + car.version.mod + ' ' + car.modify.name + ' ' + ( car.modify.yearFrom | formatBigYear ) + ' &ndash; ' + ( car.modify.yearTo | formatBigYear ) }}">
+                    <img class="mt-25" data-ng-src="{{ car.image }}" alt="{{ car.selectedBrand.name + ' ' +  car.selectedModel.name + ' ' + car.selectedVersion.gen + ' ' + car.selectedVersion.mod + ' ' + car.selectedModify.name + ' ' + ( car.selectedModify.yearFrom | formatBigYear ) + ' &ndash; ' + ( car.selectedModify.yearTo | formatBigYear ) }}">
                     <div class="caption">
-                        <h4 data-ng-class="car.best ? 'text-success' : ''">{{ car.brand.name + ' ' +  car.model.name + ' ' + car.version.gen + ' ' + car.version.mod + ' ' + car.modify.name + ' ' + ( car.modify.yearFrom | formatBigYear ) + ' &ndash; ' + ( car.modify.yearTo | formatBigYear ) }}</h4>
+                        <h4 data-ng-class="car.best ? 'text-success' : ''">{{ car.selectedBrand.name + ' ' +  car.selectedModel.name + ' ' + car.selectedVersion.gen + ' ' + car.selectedVersion.mod + ' ' + car.selectedModify.name + ' ' + ( car.selectedModify.yearFrom | formatBigYear ) + ' &ndash; ' + ( car.selectedModify.yearTo | formatBigYear ) }}</h4>
                     </div>
-                    <div class="panel-group" id="accordion{{ car.modify.id }}" role="tablist" aria-multiselectable="true">
+                    <div class="panel-group" id="accordion{{ car.selectedModify.id }}" role="tablist" aria-multiselectable="true">
                         <div class="panel panel-default">
                             <div data-ng-repeat="paramGroup in paramGroups">
-                                <div class="panel-heading bg-info" role="tab" id="heading{{ car.modify.id + '-' + paramGroup.id }}">
+                                <div class="panel-heading bg-info" role="tab" id="heading{{ car.selectedModify.id + '-' + paramGroup.id }}">
                                     <h4 class="panel-title">
-                                        <a data-toggle="collapse" data-parent="#accordion{{ car.modify.id + '-' + paramGroup.id }}" href="#collapse{{ car.modify.id + '-' + paramGroup.id }}" aria-expanded="true" aria-controls="collapse{{ car.modify.id }}">
+                                        <a data-toggle="collapse" data-parent="#accordion{{ car.selectedModify.id + '-' + paramGroup.id }}" href="#collapse{{ car.selectedModify.id + '-' + paramGroup.id }}" aria-expanded="true" aria-controls="collapse{{ car.selectedModify.id }}">
                                             {{ paramGroup.name }}
                                         </a>
                                     </h4>
                                 </div>
-                                <div class="panel-collapse collapse in" id="collapse{{ car.modify.id + '-' + paramGroup.id }}" role="tabpanel" aria-labelledby="heading{{ car.modify.id + '-' + paramGroup.id }}">
+                                <div class="panel-collapse collapse" id="collapse{{ car.selectedModify.id + '-' + paramGroup.id }}" role="tabpanel" aria-labelledby="heading{{ car.selectedModify.id + '-' + paramGroup.id }}">
                                     <div class="panel-body">
                                         <p data-ng-class="paramName.best ? 'text-success' : 'text-muted'" data-ng-repeat="paramName in paramGroup.paramNames">
-                                            {{ paramName.name }}&nbsp;
+                                            {{ paramName.name }}
                                             <span data-ng-if="paramName.units">
-                                                ({{ paramName.units }})
-                                            </span>
-                                            :
+                                                &nbsp;({{ paramName.units }})
+                                            </span>:
                                             <span data-ng-repeat="param in car.params | objectsArrayFirst : paramName">
                                                 {{ param.value | paramBlankValue }}
                                             </span>

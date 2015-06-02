@@ -6,23 +6,23 @@ carsCompareApp.controller('modalInstancesCtrl',
         function modalInstancesCtrl($scope, $modalInstance, dataService, config, car) {
             'use strict';
 
-            $scope.brands = [];
-            $scope.models = [];
-            $scope.versions = [];
-            $scope.modifies = [];
-
+            $scope.brands = !!car ? car.brands : [];
+            $scope.models = !!car ? car.models : [];
+            $scope.versions = !!car ? car.versions : [];
+            $scope.modifies = !!car ? car.modifies : [];
             $scope.params = !!car ? car.params : [];
+
             $scope.brand = {
-                selected: !!car ? car.brand : null
+                selected: !!car ? car.selectedBrand : null
             };
             $scope.model = {
-                selected: !!car ? car.model : null
+                selected: !!car ? car.selectedModel : null
             };
             $scope.version = {
-                selected: !!car ? car.version : null
+                selected: !!car ? car.selectedVersion : null
             };
             $scope.modify = {
-                selected: !!car ? car.modify : null
+                selected: !!car ? car.selectedModify : null
             };
 
             $scope.isModelsDisabled = function () {
@@ -131,7 +131,7 @@ carsCompareApp.controller('modalInstancesCtrl',
                     firstUpload = false;
                     return;
                 }
-                if (!!newValue) {                    
+                if (!!newValue) {
                     angular.extend(config, {
                         url: '/Home/GetParamsAndImageByModifyId',
                         params: {
@@ -166,12 +166,16 @@ carsCompareApp.controller('modalInstancesCtrl',
             });
 
             $scope.ok = function () {
-                var newCar = new Car({                    
-                    brand: $scope.brand.selected,
-                    model: $scope.model.selected,
-                    version: $scope.version.selected,
-                    modify: $scope.modify.selected,
+                var newCar = new Car({
+                    brands: $scope.brands,
+                    models: $scope.models,
+                    versions: $scope.versions,
+                    modifies: $scope.modifies,
                     params: $scope.params,
+                    selectedBrand: $scope.brand.selected,
+                    selectedModel: $scope.model.selected,
+                    selectedVersion: $scope.version.selected,
+                    selectedModify: $scope.modify.selected,
                     image: $scope.image
                 });
 
