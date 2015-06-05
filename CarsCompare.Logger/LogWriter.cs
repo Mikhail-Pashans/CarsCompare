@@ -45,14 +45,14 @@ namespace CarsCompare.Logger
             return Task.Run(() => _writer.Warn(message, exception));
         }
 
-        public void WriteError(string message, Exception exception = null)
+        public Task WriteErrorAsync(string message, Exception exception = null)
         {
-            _writer.Error(message, exception);
+            return Task.Run(() => _writer.Error(message, exception));
         }
 
-        public void WriteFatal(string message, Exception exception = null)
+        public Task WriteFatalAsync(string message, Exception exception = null)
         {
-            _writer.Fatal(message, exception);
+            return Task.Run(() => _writer.Fatal(message, exception));
         }
 
         private string GetIPAddress()

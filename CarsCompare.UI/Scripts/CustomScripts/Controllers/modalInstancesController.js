@@ -40,15 +40,17 @@ carsCompareApp.controller('modalInstancesCtrl',
 
             var firstUpload = true;
 
-            angular.extend(config, {
-                url: '/Home/GetBrands'
-            });
-            var brandsPromise = dataService.getData(config);
-            brandsPromise.then(function (response) {
-                $scope.brands = response.brands.map(function (item) {
-                    return new Brand(item);
+            if (!car) {
+                angular.extend(config, {
+                    url: '/Home/GetBrands'
                 });
-            });
+                var brandsPromise = dataService.getData(config);
+                brandsPromise.then(function (response) {
+                    $scope.brands = response.brands.map(function (item) {
+                        return new Brand(item);
+                    });
+                });
+            }
 
             $scope.$watch('brand.selected', function (newValue) {
                 if (!!car && firstUpload) {
@@ -132,21 +134,22 @@ carsCompareApp.controller('modalInstancesCtrl',
                     return;
                 }
                 if (!!newValue) {
+                    var viewModel = {
+                        brandId: !!$scope.brand.selected ? $scope.brand.selected.id : 0,
+                        modelId: !!$scope.model.selected ? $scope.model.selected.id : 0,
+                        versionId: !!$scope.version.selected ? $scope.version.selected.id : 0,
+                        modifyId: !!$scope.modify.selected ? $scope.modify.selected.id : 0
+                    };
                     angular.extend(config, {
                         url: '/Home/GetParamsAndImageByModifyId',
-                        params: {
-                            brandId: !!$scope.brand.selected ? $scope.brand.selected.id : 0,
-                            modelId: !!$scope.model.selected ? $scope.model.selected.id : 0,
-                            versionId: !!$scope.version.selected ? $scope.version.selected.id : 0,
-                            modifyId: !!$scope.modify.selected ? $scope.modify.selected.id : 0
-                        }
+                        params: viewModel
                     });
                     var paramsPromise = dataService.getData(config);
                     paramsPromise.then(function (response) {
                         $scope.params = response.params.map(function (item) {
                             return new Param(item);
                         });
-                        $scope.image = response.image;
+                        $scope.imageUrl = response.imageUrl;
 
                         var paramName = new ParamName({
                             id: 0,
@@ -176,7 +179,7 @@ carsCompareApp.controller('modalInstancesCtrl',
                     selectedModel: $scope.model.selected,
                     selectedVersion: $scope.version.selected,
                     selectedModify: $scope.modify.selected,
-                    image: $scope.image
+                    imageUrl: $scope.imageUrl
                 });
 
                 $modalInstance.close(newCar);

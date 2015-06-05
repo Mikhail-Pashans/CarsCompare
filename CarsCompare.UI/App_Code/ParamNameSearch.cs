@@ -7,6 +7,7 @@ using CarsCompare.UI.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.ExceptionServices;
 using System.Threading.Tasks;
 
 namespace CarsCompare.UI
@@ -30,17 +31,27 @@ namespace CarsCompare.UI
 
             if (paramNames == null)
             {
+                var paramNameBo = new ParamNameBO(_unitOfWork);
+                ExceptionDispatchInfo capturedException = null;
+
                 try
                 {
-                    var paramNameBo = new ParamNameBO(_unitOfWork);
                     var paramNameModels = await paramNameBo.GetParamNames();
                     paramNames = paramNameModels.AsQueryable();
                     _cache.Set("paramNames", paramNames, 15);
                 }
                 catch (Exception ex)
                 {
-                    _logWriter.WriteError(ex.InnerException != null ? ex.InnerException.Message : ex.Message);
-                    throw;
+                    capturedException = ExceptionDispatchInfo.Capture(ex);
+                }
+
+                if (capturedException != null)
+                {
+                    await _logWriter.WriteErrorAsync(capturedException.SourceException.InnerException != null
+                        ? capturedException.SourceException.InnerException.Message
+                        : capturedException.SourceException.Message);
+
+                    capturedException.Throw();
                 }
             }
 

@@ -7,6 +7,7 @@ using CarsCompare.UI.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.ExceptionServices;
 using System.Threading.Tasks;
 
 namespace CarsCompare.UI
@@ -30,17 +31,27 @@ namespace CarsCompare.UI
 
             if (parameters == null)
             {
+                var paramBo = new ParamBO(_unitOfWork);
+                ExceptionDispatchInfo capturedException = null;
+
                 try
                 {
-                    var paramBo = new ParamBO(_unitOfWork);
                     var paramModels = await paramBo.GetParams();
                     parameters = paramModels.AsQueryable();
                     _cache.Set("params", parameters, 15);
                 }
                 catch (Exception ex)
                 {
-                    _logWriter.WriteError(ex.InnerException != null ? ex.InnerException.Message : ex.Message);
-                    throw;
+                    capturedException = ExceptionDispatchInfo.Capture(ex);
+                }
+
+                if (capturedException != null)
+                {
+                    await _logWriter.WriteErrorAsync(capturedException.SourceException.InnerException != null
+                        ? capturedException.SourceException.InnerException.Message
+                        : capturedException.SourceException.Message);
+
+                    capturedException.Throw();
                 }
             }
 
@@ -55,17 +66,27 @@ namespace CarsCompare.UI
 
             if (parameters == null)
             {
+                var paramBo = new ParamBO(_unitOfWork);
+                ExceptionDispatchInfo capturedException = null;
+
                 try
                 {
-                    var paramBo = new ParamBO(_unitOfWork);
                     var paramModels = await paramBo.GetParamsByModifyId(modifyId);
                     parameters = paramModels.AsQueryable();
                     _cache.Set(string.Format("params-{0}", modifyId), parameters, 15);
                 }
                 catch (Exception ex)
                 {
-                    _logWriter.WriteError(ex.InnerException != null ? ex.InnerException.Message : ex.Message);
-                    throw;
+                    capturedException = ExceptionDispatchInfo.Capture(ex);
+                }
+
+                if (capturedException != null)
+                {
+                    await _logWriter.WriteErrorAsync(capturedException.SourceException.InnerException != null
+                        ? capturedException.SourceException.InnerException.Message
+                        : capturedException.SourceException.Message);
+
+                    capturedException.Throw();
                 }
             }
 

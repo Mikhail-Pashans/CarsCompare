@@ -42,9 +42,10 @@ carsCompareApp.controller('compareCtrl',
                 });
 
                 modalInstance.result.then(function (car) {
+                    car.paramGroups = $scope.paramGroups;
                     $scope.cars.push(car);
                     if ($scope.cars.length > 1) {
-                        $scope.cars[1].best = true;
+                        $scope.cars[1].isBest = true;
                     }
                 }, function () {
                     $log.info('Modal dismissed at: ' + new Date());
@@ -71,7 +72,11 @@ carsCompareApp.controller('compareCtrl',
                 });
 
                 modalInstance.result.then(function (car) {
+                    car.paramGroups = $scope.paramGroups;
                     $scope.cars.splice(index, 1, car);
+                    if ($scope.cars.length > 1) {
+                        $scope.cars[1].isBest = true;
+                    }
                 }, function () {
                     $log.info('Modal dismissed at: ' + new Date());
                 });

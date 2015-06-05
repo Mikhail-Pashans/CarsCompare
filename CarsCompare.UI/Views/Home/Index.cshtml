@@ -9,34 +9,43 @@
     <div data-ng-controller="compareCtrl">
         <div class="row mt-15">
             <div class="col-md-6">
-                <button class="btn btn-success" data-ng-click="addCar()" data-ng-disabled="cars.length >= 4">Выбрать автомобиль для сравнения</button>
+                <button class="btn btn-primary" data-ng-click="addCar()" data-ng-disabled="cars.length >= 4">
+                    <span class="glyphicon glyphicon-modal-window"></span> Выбрать автомобиль для сравнения
+                </button>
             </div>
             <div class="col-md-6 text-right" data-ng-if="!!cars.length">
-                <button class="btn btn-link" data-ng-click="clearCars()">Очистить сравнение</button>
+                <button class="btn btn-link" data-ng-click="clearCars()">
+                    <span class="glyphicon glyphicon-ban-circle"></span> Очистить сравнение
+                </button>
             </div>
         </div>
         <div class="row mt-15">
             <div class="col-md-{{ 12 / cars.length }}" data-ng-repeat="car in cars">
-                <div class="thumbnail">
-                    <button class="btn btn-link" data-ng-click="changeCar($index)">Изменить</button>
-                    <span class="close" data-ng-click="removeCar($index)"><span aria-hidden="true">&times;</span></span>
-                    <img class="mt-25" data-ng-src="{{ car.image }}" alt="{{ car.selectedBrand.name + ' ' +  car.selectedModel.name + ' ' + car.selectedVersion.gen + ' ' + car.selectedVersion.mod + ' ' + car.selectedModify.name + ' ' + ( car.selectedModify.yearFrom | formatBigYear ) + ' &ndash; ' + ( car.selectedModify.yearTo | formatBigYear ) }}">
+                <div class="thumbnail clearfix">
+                    <button class="btn btn-link pull-left" data-ng-click="changeCar($index)">
+                        <span class="glyphicon glyphicon-pencil"></span> Изменить
+                    </button>
+                    <button class="btn btn-link pull-right" data-ng-click="removeCar($index)">
+                        <span class="glyphicon glyphicon-trash"></span> Удалить
+                    </button>
+                    <img class="mt-25" data-ng-src="{{ car.imageUrl }}" alt="{{ car.selectedBrand.name + ' ' +  car.selectedModel.name + ' ' + car.selectedVersion.gen + ' ' + car.selectedVersion.mod + ' ' + car.selectedModify.name + ' ' + ( car.selectedModify.yearFrom | formatBigYear ) + ' &ndash; ' + ( car.selectedModify.yearTo | formatBigYear ) }}">
                     <div class="caption">
-                        <h4 data-ng-class="car.best ? 'text-success' : ''">{{ car.selectedBrand.name + ' ' +  car.selectedModel.name + ' ' + car.selectedVersion.gen + ' ' + car.selectedVersion.mod + ' ' + car.selectedModify.name + ' ' + ( car.selectedModify.yearFrom | formatBigYear ) + ' &ndash; ' + ( car.selectedModify.yearTo | formatBigYear ) }}</h4>
+                        <h4 data-ng-class="car.isBest ? 'text-success' : ''">{{ car.selectedBrand.name + ' ' + car.selectedModel.name + ' ' + car.selectedVersion.gen + ' ' + car.selectedVersion.mod + ' ' + car.selectedModify.name + ' ' + ( car.selectedModify.yearFrom | formatBigYear ) + ' &ndash; ' + ( car.selectedModify.yearTo | formatBigYear ) }}</h4>
                     </div>
                     <div class="panel-group" id="accordion{{ car.selectedModify.id }}" role="tablist" aria-multiselectable="true">
                         <div class="panel panel-default">
-                            <div data-ng-repeat="paramGroup in paramGroups">
+                            <div data-ng-repeat="paramGroup in car.paramGroups">
                                 <div class="panel-heading bg-info" role="tab" id="heading{{ car.selectedModify.id + '-' + paramGroup.id }}">
-                                    <h4 class="panel-title">
-                                        <a data-toggle="collapse" data-parent="#accordion{{ car.selectedModify.id + '-' + paramGroup.id }}" href="#collapse{{ car.selectedModify.id + '-' + paramGroup.id }}" aria-expanded="true" aria-controls="collapse{{ car.selectedModify.id }}">
-                                            {{ paramGroup.name }}
+                                    <h4 class="panel-title clearfix">
+                                        <a data-toggle="collapse" data-parent="#accordion{{ car.selectedModify.id + '-' + paramGroup.id }}" href="#collapse{{ car.selectedModify.id + '-' + paramGroup.id }}" aria-expanded="true" aria-controls="collapse{{ car.selectedModify.id }}" data-ng-click="isExpanded = !isExpanded">
+                                            <span class="pull-left">{{ paramGroup.name }}</span>
+                                            <span class="pull-right glyphicon" data-ng-class="isExpanded ? 'glyphicon-chevron-up' : 'glyphicon-chevron-down'"></span>
                                         </a>
                                     </h4>
                                 </div>
                                 <div class="panel-collapse collapse" id="collapse{{ car.selectedModify.id + '-' + paramGroup.id }}" role="tabpanel" aria-labelledby="heading{{ car.selectedModify.id + '-' + paramGroup.id }}">
                                     <div class="panel-body">
-                                        <p data-ng-class="paramName.best ? 'text-success' : 'text-muted'" data-ng-repeat="paramName in paramGroup.paramNames">
+                                        <p data-ng-class="paramName.isBest ? 'text-success' : 'text-muted'" data-ng-repeat="paramName in paramGroup.paramNames">
                                             {{ paramName.name }}
                                             <span data-ng-if="paramName.units">
                                                 &nbsp;({{ paramName.units }})

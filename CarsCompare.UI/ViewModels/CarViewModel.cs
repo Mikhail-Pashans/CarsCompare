@@ -1,17 +1,19 @@
 ﻿using Newtonsoft.Json;
-using System.Collections.Generic;
 
 namespace CarsCompare.UI.ViewModels
 {
     public class CarViewModel
     {
-        [JsonProperty("id")]
-        public string Id { get; set; }
-        
-        [JsonProperty("params")]
-        public IEnumerable<ParamViewModel> Params { get; set; }
+        [JsonProperty("brandId")]
+        public int BrandId { get; set; }
 
-        [JsonProperty("image")]
-        public string Image { get; set; }
+        [JsonProperty("modelId")]
+        public int ModelId { get; set; }
+
+        [JsonProperty("versionId")]
+        public int VersionId { get; set; }
+
+        [JsonProperty("modifyId")]
+        public int ModifyId { get; set; }
     }
 }

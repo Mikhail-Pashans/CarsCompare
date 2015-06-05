@@ -1,15 +1,10 @@
-﻿using System;
-using System.IO;
-using System.Linq;
-using CarsCompare.Database;
+﻿using CarsCompare.Database;
 using CarsCompare.Logger;
 using CarsCompare.UI.ActionFilters;
 using CarsCompare.UI.Cache;
 using CarsCompare.UI.ViewModels;
 using System.Threading.Tasks;
 using System.Web.Mvc;
-using CarsCompare.Database.Models.Data;
-using Version = System.Version;
 
 namespace CarsCompare.UI.Controllers
 {
@@ -102,18 +97,18 @@ namespace CarsCompare.UI.Controllers
 
         [HttpGet]
         [BrowserActionFilter]
-        public async Task<JsonResult> GetParamsAndImageByModifyId(int brandId, int modelId, int versionId, int modifyId)
+        public async Task<JsonResult> GetParamsAndImageByModifyId(CarViewModel viewModel)
         {
             var paramSearch = new ParamSearch(_unitOfWork, _cache, _logWriter);
+            var imageSearch = new ImageSearch(_cache, _logWriter);
 
-            var paramViewModels = await paramSearch.GetParamsByModifyId(modifyId);
-
-            var image = Directory.EnumerateFiles(@"\\localhost\CarsImages", string.Format("{0}_{1}_{2}_*", brandId, modelId, versionId), SearchOption.TopDirectoryOnly).FirstOrDefault();
+            var paramViewModels = await paramSearch.GetParamsByModifyId(viewModel.ModifyId);
+            var imageUrl = await imageSearch.GetImageAsync(viewModel);
 
             var result = new DataResultViewModel
             {
                 Params = paramViewModels,
-                Image = !string.IsNullOrWhiteSpace(image) ? image.Replace("\\\\localhost", "") : string.Empty
+                ImageUrl = imageUrl
             };
 
             return Json(result, JsonRequestBehavior.AllowGet);

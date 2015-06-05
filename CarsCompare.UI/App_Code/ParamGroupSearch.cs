@@ -7,6 +7,7 @@ using CarsCompare.UI.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.ExceptionServices;
 using System.Threading.Tasks;
 
 namespace CarsCompare.UI
@@ -30,17 +31,27 @@ namespace CarsCompare.UI
 
             if (paramGroups == null)
             {
+                var paramGroupBo = new ParamGroupBO(_unitOfWork);
+                ExceptionDispatchInfo capturedException = null;
+
                 try
                 {
-                    var paramGroupBo = new ParamGroupBO(_unitOfWork);
                     var paramGroupModels = await paramGroupBo.GetParamGroups();
                     paramGroups = paramGroupModels.AsQueryable();
                     _cache.Set("paramGroups", paramGroups, 15);
                 }
                 catch (Exception ex)
                 {
-                    _logWriter.WriteError(ex.InnerException != null ? ex.InnerException.Message : ex.Message);
-                    throw;
+                    capturedException = ExceptionDispatchInfo.Capture(ex);
+                }
+
+                if (capturedException != null)
+                {
+                    await _logWriter.WriteErrorAsync(capturedException.SourceException.InnerException != null
+                        ? capturedException.SourceException.InnerException.Message
+                        : capturedException.SourceException.Message);
+
+                    capturedException.Throw();
                 }
             }
 
@@ -51,21 +62,32 @@ namespace CarsCompare.UI
 
         public async Task<IEnumerable<ParamGroupViewModel>> GetParamGroupsWithParamNames()
         {
-            IQueryable<ParamGroupModel> paramGroups = _cache.Get<IQueryable<ParamGroupModel>>("paramGroupsWithParamNames");
+            IQueryable<ParamGroupModel> paramGroups =
+                _cache.Get<IQueryable<ParamGroupModel>>("paramGroupsWithParamNames");
 
             if (paramGroups == null)
             {
+                var paramGroupBo = new ParamGroupBO(_unitOfWork);
+                ExceptionDispatchInfo capturedException = null;
+
                 try
                 {
-                    var paramGroupBo = new ParamGroupBO(_unitOfWork);
                     var paramGroupModels = await paramGroupBo.GetParamGroupsWithParamNames();
                     paramGroups = paramGroupModels.AsQueryable();
                     _cache.Set("paramGroupsWithParamNames", paramGroups, 15);
                 }
                 catch (Exception ex)
                 {
-                    _logWriter.WriteError(ex.InnerException != null ? ex.InnerException.Message : ex.Message);
-                    throw;
+                    capturedException = ExceptionDispatchInfo.Capture(ex);
+                }
+
+                if (capturedException != null)
+                {
+                    await _logWriter.WriteErrorAsync(capturedException.SourceException.InnerException != null
+                        ? capturedException.SourceException.InnerException.Message
+                        : capturedException.SourceException.Message);
+
+                    capturedException.Throw();
                 }
             }
 

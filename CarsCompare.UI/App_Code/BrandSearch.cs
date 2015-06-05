@@ -1,12 +1,13 @@
-﻿using System;
-using CarsCompare.Database;
+﻿using CarsCompare.Database;
 using CarsCompare.Domain.BusinessObjects;
 using CarsCompare.Domain.Models;
 using CarsCompare.Logger;
 using CarsCompare.UI.Cache;
 using CarsCompare.UI.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.ExceptionServices;
 using System.Threading.Tasks;
 
 namespace CarsCompare.UI
@@ -30,17 +31,27 @@ namespace CarsCompare.UI
 
             if (brands == null)
             {
+                var brandBo = new BrandBO(_unitOfWork);
+                ExceptionDispatchInfo capturedException = null;
+
                 try
                 {
-                    var brandBo = new BrandBO(_unitOfWork);
                     var brandModels = await brandBo.GetBrands();
                     brands = brandModels.AsQueryable();
                     _cache.Set("brands", brands, 15);
                 }
                 catch (Exception ex)
                 {
-                    _logWriter.WriteError(ex.InnerException != null ? ex.InnerException.Message : ex.Message);
-                    throw;
+                    capturedException = ExceptionDispatchInfo.Capture(ex);
+                }
+
+                if (capturedException != null)
+                {
+                    await _logWriter.WriteErrorAsync(capturedException.SourceException.InnerException != null
+                        ? capturedException.SourceException.InnerException.Message
+                        : capturedException.SourceException.Message);
+
+                    capturedException.Throw();
                 }
             }
 

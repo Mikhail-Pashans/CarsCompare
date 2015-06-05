@@ -7,6 +7,7 @@ using CarsCompare.UI.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.ExceptionServices;
 using System.Threading.Tasks;
 
 namespace CarsCompare.UI
@@ -30,17 +31,27 @@ namespace CarsCompare.UI
 
             if (versions == null)
             {
+                var versionBo = new VersionBO(_unitOfWork);
+                ExceptionDispatchInfo capturedException = null;
+
                 try
                 {
-                    var versionBo = new VersionBO(_unitOfWork);
                     var versionModels = await versionBo.GetVersions();
                     versions = versionModels.AsQueryable();
                     _cache.Set("versions", versions, 15);
                 }
                 catch (Exception ex)
                 {
-                    _logWriter.WriteError(ex.InnerException != null ? ex.InnerException.Message : ex.Message);
-                    throw;
+                    capturedException = ExceptionDispatchInfo.Capture(ex);
+                }
+
+                if (capturedException != null)
+                {
+                    await _logWriter.WriteErrorAsync(capturedException.SourceException.InnerException != null
+                        ? capturedException.SourceException.InnerException.Message
+                        : capturedException.SourceException.Message);
+
+                    capturedException.Throw();
                 }
             }
 
@@ -51,21 +62,32 @@ namespace CarsCompare.UI
 
         public async Task<IEnumerable<VersionViewModel>> GetVersionsByModelId(int modelId)
         {
-            IQueryable<VersionModel> versions = _cache.Get<IQueryable<VersionModel>>(string.Format("versions-{0}", modelId));
+            IQueryable<VersionModel> versions =
+                _cache.Get<IQueryable<VersionModel>>(string.Format("versions-{0}", modelId));
 
             if (versions == null)
             {
+                var versionBo = new VersionBO(_unitOfWork);
+                ExceptionDispatchInfo capturedException = null;
+
                 try
                 {
-                    var versionBo = new VersionBO(_unitOfWork);
                     var versionModels = await versionBo.GetVersionsByModelId(modelId);
                     versions = versionModels.AsQueryable();
                     _cache.Set(string.Format("versions-{0}", modelId), versions, 15);
                 }
                 catch (Exception ex)
                 {
-                    _logWriter.WriteError(ex.InnerException != null ? ex.InnerException.Message : ex.Message);
-                    throw;
+                    capturedException = ExceptionDispatchInfo.Capture(ex);
+                }
+
+                if (capturedException != null)
+                {
+                    await _logWriter.WriteErrorAsync(capturedException.SourceException.InnerException != null
+                        ? capturedException.SourceException.InnerException.Message
+                        : capturedException.SourceException.Message);
+
+                    capturedException.Throw();
                 }
             }
 

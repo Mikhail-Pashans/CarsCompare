@@ -26,7 +26,7 @@ namespace CarsCompare.UI.ViewModels
         [JsonProperty("paramGroups")]
         public IEnumerable<ParamGroupViewModel> ParamGroups { get; set; }
 
-        [JsonProperty("image")]
-        public string Image { get; set; }
+        [JsonProperty("imageUrl")]
+        public string ImageUrl { get; set; }
     }
 }
