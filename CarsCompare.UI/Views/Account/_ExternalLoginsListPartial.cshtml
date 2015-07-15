@@ -1,0 +1,29 @@
+﻿@model CarsCompare.UI.ViewModels.ExternalLoginListViewModel
+
+@using Microsoft.Owin.Security
+
+<h4>Используйте сторонние сервисы для входа.</h4>
+<hr />
+@{
+    var loginProviders = Context.GetOwinContext().Authentication.GetExternalAuthenticationTypes();
+    if (loginProviders.Any()) {
+        <div>
+            <p>
+                Сконфигурированные сторонние сервисы аутентификации отсутствуют. See <a href="http://go.microsoft.com/fwlink/?LinkId=403804">эту статью</a>
+                для деталей по настройке приложения для работы со сторонними сервисами аутентификации
+            </p>
+        </div>
+    }
+    else {
+        using (Html.BeginForm("ExternalLogin", "Account", new { ReturnUrl = Model.ReturnUrl })) {
+            @Html.AntiForgeryToken()
+            <div id="socialLoginList">
+                <p>
+                    @foreach (AuthenticationDescription p in loginProviders) {
+                        <button type="submit" class="btn btn-default" id="@p.AuthenticationType" name="provider" value="@p.AuthenticationType" title="Войдите, используя ваш @p.Caption аккаунт">@p.AuthenticationType</button>
+                    }
+                </p>
+            </div>
+        }
+    }
+}
