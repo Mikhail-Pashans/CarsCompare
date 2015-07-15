@@ -1,0 +1,7 @@
+D:\Projects\CarsCompare\CarsCompare.Logger\bin\Debug\CarsCompare.Logger.dll
+D:\Projects\CarsCompare\CarsCompare.Logger\bin\Debug\CarsCompare.Logger.pdb
+D:\Projects\CarsCompare\CarsCompare.Logger\bin\Debug\log4net.dll
+D:\Projects\CarsCompare\CarsCompare.Logger\bin\Debug\log4net.xml
+D:\Projects\CarsCompare\CarsCompare.Logger\obj\Debug\CarsCompare.Logger.csprojResolveAssemblyReference.cache
+D:\Projects\CarsCompare\CarsCompare.Logger\obj\Debug\CarsCompare.Logger.dll
+D:\Projects\CarsCompare\CarsCompare.Logger\obj\Debug\CarsCompare.Logger.pdb

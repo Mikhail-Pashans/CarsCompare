@@ -1,0 +1,16 @@
+D:\Projects\CarsCompare\CarsCompare.Database\bin\Debug\CarsCompare.Database.dll.config
+D:\Projects\CarsCompare\CarsCompare.Database\bin\Debug\CarsCompare.Database.dll
+D:\Projects\CarsCompare\CarsCompare.Database\bin\Debug\CarsCompare.Database.pdb
+D:\Projects\CarsCompare\CarsCompare.Database\bin\Debug\EntityFramework.dll
+D:\Projects\CarsCompare\CarsCompare.Database\bin\Debug\EntityFramework.SqlServer.dll
+D:\Projects\CarsCompare\CarsCompare.Database\bin\Debug\MySql.Data.dll
+D:\Projects\CarsCompare\CarsCompare.Database\bin\Debug\MySql.Data.Entity.EF6.dll
+D:\Projects\CarsCompare\CarsCompare.Database\bin\Debug\Newtonsoft.Json.dll
+D:\Projects\CarsCompare\CarsCompare.Database\bin\Debug\EntityFramework.xml
+D:\Projects\CarsCompare\CarsCompare.Database\bin\Debug\EntityFramework.SqlServer.xml
+D:\Projects\CarsCompare\CarsCompare.Database\bin\Debug\Newtonsoft.Json.xml
+D:\Projects\CarsCompare\CarsCompare.Database\obj\Debug\CarsCompare.Database.csprojResolveAssemblyReference.cache
+D:\Projects\CarsCompare\CarsCompare.Database\obj\Debug\CarsCompare.Database.Migrations.InitialCreate.resources
+D:\Projects\CarsCompare\CarsCompare.Database\obj\Debug\CarsCompare.Database.csproj.GenerateResource.Cache
+D:\Projects\CarsCompare\CarsCompare.Database\obj\Debug\CarsCompare.Database.dll
+D:\Projects\CarsCompare\CarsCompare.Database\obj\Debug\CarsCompare.Database.pdb
