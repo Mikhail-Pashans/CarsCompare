@@ -103,7 +103,7 @@ namespace CarsCompare.UI.Controllers
             var imageSearch = new ImageSearch(_cache, _logWriter);
 
             var paramViewModels = await paramSearch.GetParamsByModifyId(viewModel.ModifyId);
-            var imageUrl = await imageSearch.GetImageAsync(viewModel);
+            var imageUrl = string.Empty;//vve Пока вырублю.//await imageSearch.GetImageAsync(viewModel);
 
             var result = new DataResultViewModel
             {

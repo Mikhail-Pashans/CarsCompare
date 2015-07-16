@@ -5,3 +5,10 @@ D:\Projects\CarsCompare\CarsCompare.Logger\bin\Debug\log4net.xml
 D:\Projects\CarsCompare\CarsCompare.Logger\obj\Debug\CarsCompare.Logger.csprojResolveAssemblyReference.cache
 D:\Projects\CarsCompare\CarsCompare.Logger\obj\Debug\CarsCompare.Logger.dll
 D:\Projects\CarsCompare\CarsCompare.Logger\obj\Debug\CarsCompare.Logger.pdb
+d:\Work_vve\workspace_sharp_git\Mikhail_Pashans\CarsCompare.Logger\bin\Debug\CarsCompare.Logger.dll
+d:\Work_vve\workspace_sharp_git\Mikhail_Pashans\CarsCompare.Logger\bin\Debug\CarsCompare.Logger.pdb
+d:\Work_vve\workspace_sharp_git\Mikhail_Pashans\CarsCompare.Logger\bin\Debug\log4net.dll
+d:\Work_vve\workspace_sharp_git\Mikhail_Pashans\CarsCompare.Logger\bin\Debug\log4net.xml
+d:\Work_vve\workspace_sharp_git\Mikhail_Pashans\CarsCompare.Logger\obj\Debug\CarsCompare.Logger.dll
+d:\Work_vve\workspace_sharp_git\Mikhail_Pashans\CarsCompare.Logger\obj\Debug\CarsCompare.Logger.pdb
+d:\Work_vve\workspace_sharp_git\Mikhail_Pashans\CarsCompare.Logger\obj\Debug\CarsCompare.Logger.csprojResolveAssemblyReference.cache
