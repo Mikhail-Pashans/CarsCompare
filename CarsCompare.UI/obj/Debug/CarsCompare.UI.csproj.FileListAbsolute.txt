@@ -70,7 +70,6 @@ D:\Projects\CarsCompare\CarsCompare.UI\bin\System.Web.Optimization.xml
 D:\Projects\CarsCompare\CarsCompare.UI\obj\Debug\CarsCompare.UI.csprojResolveAssemblyReference.cache
 D:\Projects\CarsCompare\CarsCompare.UI\obj\Debug\CarsCompare.UI.dll
 D:\Projects\CarsCompare\CarsCompare.UI\obj\Debug\CarsCompare.UI.pdb
-d:\Work_vve\workspace_sharp_git\Mikhail_Pashans\CarsCompare.UI\obj\Debug\CarsCompare.UI.csprojResolveAssemblyReference.cache
 d:\Work_vve\workspace_sharp_git\Mikhail_Pashans\CarsCompare.UI\bin\CarsCompare.UI.dll.config
 d:\Work_vve\workspace_sharp_git\Mikhail_Pashans\CarsCompare.UI\bin\CarsCompare.UI.dll
 d:\Work_vve\workspace_sharp_git\Mikhail_Pashans\CarsCompare.UI\bin\CarsCompare.UI.pdb
@@ -140,5 +139,6 @@ d:\Work_vve\workspace_sharp_git\Mikhail_Pashans\CarsCompare.UI\bin\System.Web.Ra
 d:\Work_vve\workspace_sharp_git\Mikhail_Pashans\CarsCompare.UI\bin\System.Web.WebPages.xml
 d:\Work_vve\workspace_sharp_git\Mikhail_Pashans\CarsCompare.UI\bin\System.Web.WebPages.Deployment.xml
 d:\Work_vve\workspace_sharp_git\Mikhail_Pashans\CarsCompare.UI\bin\System.Web.WebPages.Razor.xml
+d:\Work_vve\workspace_sharp_git\Mikhail_Pashans\CarsCompare.UI\obj\Debug\CarsCompare.UI.csprojResolveAssemblyReference.cache
 d:\Work_vve\workspace_sharp_git\Mikhail_Pashans\CarsCompare.UI\obj\Debug\CarsCompare.UI.dll
 d:\Work_vve\workspace_sharp_git\Mikhail_Pashans\CarsCompare.UI\obj\Debug\CarsCompare.UI.pdb

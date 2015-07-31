@@ -16,7 +16,6 @@ D:\Projects\CarsCompare\CarsCompare.Domain\bin\Debug\log4net.xml
 D:\Projects\CarsCompare\CarsCompare.Domain\obj\Debug\CarsCompare.Domain.csprojResolveAssemblyReference.cache
 D:\Projects\CarsCompare\CarsCompare.Domain\obj\Debug\CarsCompare.Domain.dll
 D:\Projects\CarsCompare\CarsCompare.Domain\obj\Debug\CarsCompare.Domain.pdb
-d:\Work_vve\workspace_sharp_git\Mikhail_Pashans\CarsCompare.Domain\obj\Debug\CarsCompare.Domain.csprojResolveAssemblyReference.cache
 d:\Work_vve\workspace_sharp_git\Mikhail_Pashans\CarsCompare.Domain\bin\Debug\CarsCompare.Domain.dll.config
 d:\Work_vve\workspace_sharp_git\Mikhail_Pashans\CarsCompare.Domain\bin\Debug\CarsCompare.Domain.dll
 d:\Work_vve\workspace_sharp_git\Mikhail_Pashans\CarsCompare.Domain\bin\Debug\CarsCompare.Domain.pdb
@@ -32,5 +31,6 @@ d:\Work_vve\workspace_sharp_git\Mikhail_Pashans\CarsCompare.Domain\bin\Debug\Car
 d:\Work_vve\workspace_sharp_git\Mikhail_Pashans\CarsCompare.Domain\bin\Debug\EntityFramework.xml
 d:\Work_vve\workspace_sharp_git\Mikhail_Pashans\CarsCompare.Domain\bin\Debug\Newtonsoft.Json.xml
 d:\Work_vve\workspace_sharp_git\Mikhail_Pashans\CarsCompare.Domain\bin\Debug\log4net.xml
+d:\Work_vve\workspace_sharp_git\Mikhail_Pashans\CarsCompare.Domain\obj\Debug\CarsCompare.Domain.csprojResolveAssemblyReference.cache
 d:\Work_vve\workspace_sharp_git\Mikhail_Pashans\CarsCompare.Domain\obj\Debug\CarsCompare.Domain.dll
 d:\Work_vve\workspace_sharp_git\Mikhail_Pashans\CarsCompare.Domain\obj\Debug\CarsCompare.Domain.pdb

@@ -14,9 +14,6 @@ D:\Projects\CarsCompare\CarsCompare.Database\obj\Debug\CarsCompare.Database.Migr
 D:\Projects\CarsCompare\CarsCompare.Database\obj\Debug\CarsCompare.Database.csproj.GenerateResource.Cache
 D:\Projects\CarsCompare\CarsCompare.Database\obj\Debug\CarsCompare.Database.dll
 D:\Projects\CarsCompare\CarsCompare.Database\obj\Debug\CarsCompare.Database.pdb
-D:\Work_vve\workspace_sharp_git\Mikhail_Pashans\CarsCompare.Database\obj\Debug\CarsCompare.Database.csprojResolveAssemblyReference.cache
-D:\Work_vve\workspace_sharp_git\Mikhail_Pashans\CarsCompare.Database\obj\Debug\CarsCompare.Database.Migrations.InitialCreate.resources
-D:\Work_vve\workspace_sharp_git\Mikhail_Pashans\CarsCompare.Database\obj\Debug\CarsCompare.Database.csproj.GenerateResource.Cache
 D:\Work_vve\workspace_sharp_git\Mikhail_Pashans\CarsCompare.Database\bin\Debug\CarsCompare.Database.dll.config
 D:\Work_vve\workspace_sharp_git\Mikhail_Pashans\CarsCompare.Database\bin\Debug\CarsCompare.Database.dll
 D:\Work_vve\workspace_sharp_git\Mikhail_Pashans\CarsCompare.Database\bin\Debug\CarsCompare.Database.pdb
@@ -28,5 +25,7 @@ D:\Work_vve\workspace_sharp_git\Mikhail_Pashans\CarsCompare.Database\bin\Debug\N
 D:\Work_vve\workspace_sharp_git\Mikhail_Pashans\CarsCompare.Database\bin\Debug\EntityFramework.xml
 D:\Work_vve\workspace_sharp_git\Mikhail_Pashans\CarsCompare.Database\bin\Debug\EntityFramework.SqlServer.xml
 D:\Work_vve\workspace_sharp_git\Mikhail_Pashans\CarsCompare.Database\bin\Debug\Newtonsoft.Json.xml
+D:\Work_vve\workspace_sharp_git\Mikhail_Pashans\CarsCompare.Database\obj\Debug\CarsCompare.Database.Migrations.InitialCreate.resources
+D:\Work_vve\workspace_sharp_git\Mikhail_Pashans\CarsCompare.Database\obj\Debug\CarsCompare.Database.csproj.GenerateResource.Cache
 D:\Work_vve\workspace_sharp_git\Mikhail_Pashans\CarsCompare.Database\obj\Debug\CarsCompare.Database.dll
 D:\Work_vve\workspace_sharp_git\Mikhail_Pashans\CarsCompare.Database\obj\Debug\CarsCompare.Database.pdb
